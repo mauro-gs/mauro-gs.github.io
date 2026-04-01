@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mauro González Sierra</title>
+    <meta name="description" content="Investigador y consultor en mercados eléctricos hidrotérmicos. Modelos de despacho, pronósticos de precio y optimización energética en Colombia y Brasil.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #fafaf8;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --accent: #0e4d6e;
+            --accent-light: #e8f1f5;
+            --border: #ddd;
+            --highlight: #d4770014;
+            --warm: #d47700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* === HEADER === */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--border);
+            /* Placeholder gradient — reemplazar con tu foto */
+            background: linear-gradient(135deg, var(--accent) 0%, #2a7a9b 100%);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            max-width: 480px;
+            margin: 0 auto 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-light);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        /* === BIO === */
+        .bio {
+            margin-bottom: 0;
+        }
+
+        .bio p {
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+
+        .bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* === SECTION HEADINGS === */
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* === STUDIES LIST === */
+        .studies-list {
+            list-style: none;
+        }
+
+        .studies-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .studies-list li:last-child {
+            border-bottom: none;
+        }
+
+        .study-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .study-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            line-height: 1.4;
+            display: block;
+        }
+
+        .study-title:hover {
+            color: var(--accent);
+        }
+
+        .study-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        .study-tags {
+            margin-top: 6px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+
+        /* === NEWSLETTER === */
+        .newsletter {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 24px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 0;
+        }
+
+        .newsletter p {
+            margin-bottom: 14px;
+            font-size: 0.95rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-form input[type="email"] {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'Source Serif 4', serif;
+            font-size: 0.95rem;
+            background: #fff;
+            outline: none;
+        }
+
+        .newsletter-form input[type="email"]:focus {
+            border-color: var(--accent);
+        }
+
+        .newsletter-form button {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            opacity: 0.85;
+        }
+
+        /* === EXPERIENCE === */
+        .experience-item {
+            margin-bottom: 24px;
+            padding-left: 16px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .experience-item:hover {
+            border-left-color: var(--accent);
+        }
+
+        .exp-period {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+            font-weight: 500;
+        }
+
+        .exp-role {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .exp-desc {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: 'JetBrains Mono', monospace;
+            padding-top: 10px;
+        }
+
+        .footer a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 500px) {
+            .container { padding: 40px 18px 60px; }
+            h1 { font-size: 1.6rem; }
+            .tagline { font-size: 1rem; }
+            .newsletter-form { flex-direction: column; }
+            .social-links { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header">
+            <!-- Reemplaza src con tu foto. Tamaño recomendado: 300x300px -->
+            <img class="photo" src="foto.jpg" alt="Mauro González Sierra"
+                 onerror="this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.alt='MGS';">
+
+            <h1>Mauro González Sierra</h1>
+            <p class="tagline">Modelos de despacho, pronósticos de precio y optimización en mercados eléctricos hidrotérmicos</p>
+
+            <div class="social-links">
+                <a href="https://linkedin.com/in/TU-PERFIL" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://x.com/TU-USUARIO" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    @usuario
+                </a>
+                <a href="https://scholar.google.com/citations?user=TU-ID" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+                    Scholar
+                </a>
+                <a href="mailto:tu@email.com">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+                    Email
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- BIO -->
+        <div class="bio">
+            <p>
+                Soy ingeniero de planeación energética con más de 12 años de experiencia en el sector eléctrico colombiano y brasileño. Actualmente termino mi doctorado en modelos de despacho de sistemas hidrotérmicos, combinando aprendizaje por refuerzo inverso con arquitecturas Transformer para modelar la valoración del agua y las decisiones de oferta de generadores.
+            </p>
+            <p>
+                Mi maestría se enfocó en modelos de planeación estocástica tipo SDDP y técnicas de descomposición. Dirijo una empresa de desarrollo de software y consultoría especializada en herramientas de pronóstico y optimización para el sector energético.
+            </p>
+            <p>
+                En este sitio publico estudios periódicos sobre el mercado eléctrico: proyecciones de precio de bolsa, análisis de despacho, escenarios hidrológicos y tendencias regulatorias.
+            </p>
+        </div>
+
+        <hr>
+
+        <!-- NEWSLETTER -->
+        <div class="newsletter">
+            <p><strong>Recibe mis estudios de mercado eléctrico cada dos semanas.</strong> Análisis independientes sobre precios, despacho y riesgos en los mercados de Colombia y Brasil.</p>
+            <!-- Reemplaza action con tu URL de Mailchimp/ConvertKit/Buttondown -->
+            <form class="newsletter-form" action="#" method="post">
+                <input type="email" name="email" placeholder="tu@email.com" required>
+                <button type="submit">Suscribirse</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- ESTUDIOS -->
+        <h2>// estudios</h2>
+
+        <ul class="studies-list">
+            <li>
+                <span class="study-date">Abr 2026</span>
+                <a class="study-title" href="#">Precio de bolsa bajo escenarios de El Niño: proyección S2 2026</a>
+                <p class="study-desc">Simulación del despacho hidrotérmico colombiano bajo tres escenarios de aportes hídricos y su impacto en el precio de bolsa para el segundo semestre.</p>
+                <div class="study-tags">
+                    <span class="tag">Colombia</span>
+                    <span class="tag">Precio de bolsa</span>
+                    <span class="tag">El Niño</span>
+                </div>
+            </li>
+            <li>
+                <span class="study-date">Mar 2026</span>
+                <a class="study-title" href="#">Impacto de nueva capacidad renovable en el despacho térmico colombiano</a>
+                <p class="study-desc">Análisis de cómo la entrada de proyectos solares y eólicos desplaza generación térmica y cambia la dinámica de precios marginales.</p>
+                <div class="study-tags">
+                    <span class="tag">Colombia</span>
+                    <span class="tag">Renovables</span>
+                    <span class="tag">Despacho</span>
+                </div>
+            </li>
+            <li>
+                <span class="study-date">Feb 2026</span>
+                <a class="study-title" href="#">Valoración del agua en Itaipú: lecciones del modelo brasileño</a>
+                <p class="study-desc">Revisión de cómo el operador brasileño valora el recurso hídrico en la planificación de mediano plazo y qué puede aprender Colombia.</p>
+                <div class="study-tags">
+                    <span class="tag">Brasil</span>
+                    <span class="tag">Valor del agua</span>
+                    <span class="tag">SDDP</span>
+                </div>
+            </li>
+        </ul>
+
+        <hr>
+
+        <!-- EXPERIENCIA -->
+        <h2>// trayectoria</h2>
+
+        <div class="experience-item">
+            <span class="exp-period">2022 – presente</span>
+            <p class="exp-role">Doctorado — Modelos de despacho hidrotérmico</p>
+            <p class="exp-desc">Aprendizaje por refuerzo inverso con Transformers para modelar valoración del agua y decisiones de oferta en mercados eléctricos.</p>
+        </div>
+
+        <div class="experience-item">
+            <span class="exp-period">2018 – presente</span>
+            <p class="exp-role">Fundador — Empresa de software y consultoría energética</p>
+            <p class="exp-desc">Desarrollo de herramientas de pronóstico de precio, simulación de despacho y optimización de portafolios para generadores y comercializadores en Colombia y Brasil.</p>
+        </div>
+
+        <div class="experience-item">
+            <span class="exp-period">2014 – 2018</span>
+            <p class="exp-role">Maestría — Planeación energética</p>
+            <p class="exp-desc">Modelos de planeación estocástica tipo SDDP y técnicas de descomposición aplicadas a sistemas hidrotérmicos.</p>
+        </div>
+
+        <div class="experience-item">
+            <span class="exp-period">2012 – presente</span>
+            <p class="exp-role">Ingeniero de planeación — Sector eléctrico</p>
+            <p class="exp-desc">+12 años de experiencia en planeamiento energético, comercialización y análisis de mercado en Colombia y Brasil.</p>
+        </div>
+
+        <hr>
+
+        <p class="footer">
+            © 2026 Mauro González Sierra · 0 frameworks fueron usados para hacer esta página
+        </p>
+
+    </div>
+</body>
+</html>
