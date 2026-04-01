@@ -346,13 +346,54 @@
         <!-- NEWSLETTER -->
         <div class="newsletter">
             <p><strong>Recibe mis estudios de mercado eléctrico cada dos semanas.</strong> Análisis independientes sobre precios, despacho y riesgos en los mercados de Colombia y Brasil.</p>
-            <form class="newsletter-form" action="https://buttondown.com/api/emails/embed-subscribe/maurogs" method="post">
-                <input type="email" name="email" placeholder="tu@email.com" required>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" name="email" id="newsletter-email" placeholder="tu@email.com" required>
                 <!-- Honeypot anti-bot: campo invisible que solo los bots llenan -->
                 <input type="text" name="url" style="display:none" tabindex="-1" autocomplete="off">
-                <button type="submit">Suscribirse</button>
+                <button type="submit" id="newsletter-btn">Suscribirse</button>
             </form>
+            <p id="newsletter-msg" style="display:none; margin-top:14px; font-size:0.92rem;"></p>
         </div>
+
+        <script>
+        document.getElementById('newsletter-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const honeypot = this.querySelector('input[name="url"]').value;
+            const btn = document.getElementById('newsletter-btn');
+            const msg = document.getElementById('newsletter-msg');
+
+            if (honeypot) return;
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
+            try {
+                const res = await fetch('https://buttondown.com/api/emails/embed-subscribe/maurogs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'email=' + encodeURIComponent(email)
+                });
+
+                msg.style.display = 'block';
+                if (res.ok || res.status === 303) {
+                    msg.style.color = '#0e4d6e';
+                    msg.innerHTML = '✓ <strong>¡Casi listo!</strong> Revisa tu correo y confirma tu suscripción haciendo clic en el enlace que te enviamos.';
+                    document.getElementById('newsletter-email').value = '';
+                } else {
+                    msg.style.color = '#b44';
+                    msg.textContent = 'Hubo un error. Intenta de nuevo o escríbeme directamente.';
+                }
+            } catch (err) {
+                msg.style.display = 'block';
+                msg.style.color = '#b44';
+                msg.textContent = 'Error de conexión. Intenta de nuevo.';
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Suscribirse';
+        });
+        </script>
 
         <hr>
 
