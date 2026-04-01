@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios negativos en mercados de electricidad — Mauro González Sierra</title>
+    <meta name="description" content="¿Qué significa un precio negativo en un mercado eléctrico? Análisis de las señales económicas detrás de este fenómeno y sus implicaciones para generadores y comercializadores.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #fafaf8;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --accent: #0e4d6e;
+            --accent-light: #e8f1f5;
+            --border: #ddd;
+            --warm: #d47700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* NAV */
+        .nav {
+            margin-bottom: 40px;
+        }
+
+        .nav a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* ARTICLE HEADER */
+        .article-header {
+            margin-bottom: 36px;
+        }
+
+        .article-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .article-tags {
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
+        }
+
+        /* ARTICLE BODY */
+        .article-body p {
+            margin-bottom: 16px;
+        }
+
+        .article-body h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .article-body ul, .article-body ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 6px;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 12px 20px;
+            margin: 20px 0;
+            background: var(--accent-light);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* CTA */
+        .read-full {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .read-full:hover {
+            opacity: 0.85;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 48px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 30px 18px 60px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <nav class="nav">
+            <a href="../index.html">← Volver al inicio</a>
+        </nav>
+
+        <article>
+            <div class="article-header">
+                <span class="article-date">14 de noviembre de 2024</span>
+                <h1>Precios negativos en mercados de electricidad</h1>
+                <div class="article-tags">
+                    <span class="tag">Mercados eléctricos</span>
+                    <span class="tag">Precios</span>
+                    <span class="tag">Diseño de mercado</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="article-body">
+                <p>
+                    Cuando alguien escucha que el precio de un producto es negativo, la primera impresión suele ser de extrañeza — parece un error o algo que no debería ocurrir. Sin embargo, la teoría económica nos dice que el precio de un producto en un mercado es una señal de abundancia o escasez. En el caso de precios negativos, el mensaje es claro: se estaría pagando a la demanda por consumir el producto.
+                </p>
+
+                <p>
+                    En los mercados de electricidad, este fenómeno tiene implicaciones profundas para generadores, comercializadores y reguladores. ¿Qué condiciones producen precios negativos? ¿Qué señales envían a la inversión en nueva capacidad? ¿Y cómo deberían responder los marcos regulatorios?
+                </p>
+
+                <p>
+                    En este artículo exploro las causas, consecuencias y lecciones de los precios negativos en mercados eléctricos, con una mirada desde la experiencia en sistemas hidrotérmicos como el colombiano y el brasileño.
+                </p>
+
+                <a class="read-full" href="https://www.linkedin.com/pulse/precios-negativos-en-mercados-de-electricidad-mauro-gonzalez-sierra-56kle/" target="_blank">Leer artículo completo en LinkedIn →</a>
+            </div>
+        </article>
+
+        <hr>
+
+        <p class="footer">
+            <a href="../index.html">gonzalezsierra.co</a> · Mauro González Sierra
+        </p>
+
+    </div>
+</body>
+</html>

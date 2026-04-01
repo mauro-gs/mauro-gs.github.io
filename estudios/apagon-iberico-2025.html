@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integración de renovables y seguridad del sistema: lecciones del apagón ibérico de 2025 — Mauro González Sierra</title>
+    <meta name="description" content="El 28 de abril de 2025, una rampa solar abrupta y soporte reactivo insuficiente provocaron un apagón que separó a España y Portugal de la red europea. Análisis de las lecciones para sistemas con alta penetración renovable.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #fafaf8;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --accent: #0e4d6e;
+            --accent-light: #e8f1f5;
+            --border: #ddd;
+            --warm: #d47700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .nav {
+            margin-bottom: 40px;
+        }
+
+        .nav a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 36px;
+        }
+
+        .article-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .article-tags {
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
+        }
+
+        .article-body p {
+            margin-bottom: 16px;
+        }
+
+        .article-body h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .read-full {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 10px 24px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            transition: opacity 0.2s;
+        }
+
+        .read-full:hover {
+            opacity: 0.85;
+        }
+
+        .citation {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            background: #f5f5f3;
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 48px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 30px 18px 60px; }
+            h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <nav class="nav">
+            <a href="../index.html">← Volver al inicio</a>
+        </nav>
+
+        <article>
+            <div class="article-header">
+                <span class="article-date">6 de junio de 2025</span>
+                <h1>Integración de renovables y seguridad del sistema eléctrico: lecciones del apagón ibérico de 2025</h1>
+                <div class="article-tags">
+                    <span class="tag">Renovables</span>
+                    <span class="tag">Seguridad del sistema</span>
+                    <span class="tag">Europa</span>
+                    <span class="tag">Publicación académica</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="article-body">
+                <p>
+                    El 28 de abril de 2025, una rampa solar abrupta, baja demanda de primavera y soporte reactivo insuficiente provocaron un apagón que separó a España y Portugal de la red europea. Este evento puso en evidencia la vulnerabilidad de los sistemas con alta penetración de generación basada en inversores — y la necesidad urgente de nuevas estrategias de planificación y control.
+                </p>
+
+                <p>
+                    En este artículo académico, publicado en la revista TESEA, analizamos los desafíos técnicos de integrar recursos energéticos variables a gran escala y las lecciones que este evento deja para sistemas eléctricos en transición energética, incluyendo los mercados latinoamericanos.
+                </p>
+
+                <p>
+                    El trabajo aborda las condiciones que llevaron al colapso, los mecanismos de propagación de la falla, y propone recomendaciones para la operación y planificación de sistemas con creciente participación renovable.
+                </p>
+
+                <a class="read-full" href="https://revistas.utb.edu.co/tesea/article/view/911" target="_blank">Leer artículo completo en TESEA →</a>
+
+                <div class="citation">
+                    González Sierra, M. (2025). Challenges of variable energy resource integration and power system security: Lessons from the 2025 Iberian system blackout. <em>TESEA</em>. https://revistas.utb.edu.co/tesea/article/view/911
+                </div>
+            </div>
+        </article>
+
+        <hr>
+
+        <p class="footer">
+            <a href="../index.html">gonzalezsierra.co</a> · Mauro González Sierra
+        </p>
+
+    </div>
+</body>
+</html>
