@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyección del PME — Mayo 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #fafaf8;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --accent: #0e4d6e;
+            --accent-light: #e8f1f5;
+            --border: #ddd;
+            --warm: #d47700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .nav {
+            margin-bottom: 40px;
+        }
+
+        .nav a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            text-decoration: underline;
+        }
+
+        .article-header {
+            margin-bottom: 36px;
+        }
+
+        .article-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--warm);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .article-tags {
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
+        }
+
+        .article-body p {
+            margin-bottom: 16px;
+        }
+
+        .article-body h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .article-body ul {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 6px;
+        }
+
+        .article-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            background: #f0f0ee;
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+
+        .article-body th {
+            background: var(--accent-light);
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .article-body td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chart-container {
+            margin: 24px 0;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .chart-container iframe {
+            width: 100%;
+            border: none;
+            display: block;
+            overflow: hidden;
+        }
+
+        .chart-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 8px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .kpi-card {
+            background: var(--accent-light);
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .kpi-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Codificación de colores por rol del KPI */
+        .kpi-card.kpi-avg .kpi-value { color: var(--accent); }
+        .kpi-card.kpi-max .kpi-value { color: #c0392b; }
+        .kpi-card.kpi-min .kpi-value { color: #1e7e5a; }
+
+        .kpi-card.kpi-avg { border-top: 3px solid var(--accent); }
+        .kpi-card.kpi-max { border-top: 3px solid #c0392b; }
+        .kpi-card.kpi-min { border-top: 3px solid #1e7e5a; }
+
+        .methodology {
+            background: #f5f5f3;
+            padding: 18px 22px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 24px 0;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 48px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 30px 18px 60px; }
+            h1 { font-size: 1.4rem; }
+            .kpi-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav">
+            <a href="../index.html">[← Volver al inicio]</a>
+        </nav>
+
+        <article>
+            <header class="article-header">
+                <span class="article-date">Mayo de 2026</span>
+                <h1>Proyecci&oacute;n del Precio Marginal de Escasez (PME) &mdash; Mayo 2026</h1>
+                <div class="article-tags">
+                    <span class="tag">PME</span>
+                    <span class="tag">Cargo por Confiabilidad</span>
+                    <span class="tag">Mercado el&eacute;ctrico</span>
+                    <span class="tag">Colombia</span>
+                    <span class="tag">Escenario de Precios Altos</span>
+                </div>
+            </header>
+
+            <hr>
+
+            <div class="article-body">
+                <p>El siguiente informe presenta la proyecci&oacute;n del Precio Marginal de Escasez (PME) del Cargo por Confiabilidad en Colombia para los pr&oacute;ximos 24 meses, junto con un an&aacute;lisis de los principales drivers que determinan su trayectoria. El PME proyectado bajo el escenario <strong>de precios altos</strong> presenta un promedio de <strong>899.68 COP/kWh</strong>, con valores entre 805.44 COP/kWh (Jun-2027) y 1,083.23 COP/kWh (Jun-2026).</p>
+
+                <p>El combustible que define el PME a lo largo del horizonte es el <strong>diesel</strong>, que act&uacute;a como marginal en 15 de los 23 meses proyectados (65%), siendo MERILECTRICA 1 y TERMONORTE las plantas concretas en el margen. Esto refleja la dependencia del sistema t&eacute;rmico colombiano de plantas con diesel para cubrir las puntas de demanda en condiciones de hidrolog&iacute;a limitada.</p>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-avg">
+                        <span class="kpi-value">900</span>
+                        <span class="kpi-label">PME Promedio (COP/kWh)</span>
+                    </div>
+                    <div class="kpi-card kpi-max">
+                        <span class="kpi-value">1,083</span>
+                        <span class="kpi-label">PME M&aacute;ximo (Jun-2026)</span>
+                    </div>
+                    <div class="kpi-card kpi-min">
+                        <span class="kpi-value">805</span>
+                        <span class="kpi-label">PME M&iacute;nimo (Jun-2027)</span>
+                    </div>
+                </div>
+
+                <h2>Serie de tiempo del PME</h2>
+                <p>La siguiente gr&aacute;fica muestra el PME hist&oacute;rico (datos reales publicados por XM) y la proyecci&oacute;n a 24 meses bajo el escenario de precios seleccionado. Los marcadores son interactivos.</p>
+                <div class="chart-container">
+                    <iframe src="assets_pme_may_2026/pme_proyeccion.html" height="580" scrolling="no"></iframe>
+                </div>
+
+                
+<h2>Resumen ejecutivo</h2>
+<p>El Precio Marginal de Escasez (PME) proyectado para los próximos 23 meses presenta un promedio de 899.68 COP/kWh, con valores que oscilan entre 805.44 COP/kWh (Jun-2027) y 1,083.23 COP/kWh (Jun-2026).</p>
+<p>El combustible que define el PME a lo largo del horizonte es el <strong>diesel</strong>, que actúa como marginal en 15 de los 23 meses proyectados (65%), siendo MERILECTRICA 1 y TERMONORTE las plantas concretas que con mayor frecuencia se ubican en el margen. Esto refleja que el sistema térmico colombiano sigue dependiendo de plantas con diesel para cubrir las puntas de demanda en condiciones de hidrología limitada y escenarios de combustibles tensionados.</p>
+
+<h2>Factores determinantes del PME</h2>
+<p>El PME queda determinado por el costo variable de la planta térmica que, dentro de la curva de oferta agregada de Obligaciones de Energía Firme (OEF), se ubica en el percentil 98 — es decir, la planta cuyo costo variable es superior al del 98% de la capacidad comprometida. En esta proyección, las plantas que operan con diesel son las que consistentemente definen ese umbral.</p>
+<p>El costo variable de la planta marginal está compuesto por tres elementos principales:</p>
+<ul>
+  <li>El precio proyectado del diesel, que representa el componente dominante del costo y cuya trayectoria sigue el escenario de precios altos de combustibles.</li>
+  <li>La eficiencia térmica (Heat Rate) de la planta, que se mantiene constante según el último valor declarado ante el regulador.</li>
+  <li>Los costos regulados de operación, mantenimiento y otros costos variables, que se actualizan anualmente con una tasa de indexación del 2%.</li>
+</ul>
+<p>Las cinco plantas con mayor costo variable en Jun-2026 son:</p>
+<table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.95rem;">
+<tr><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">#</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Planta</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Combustible</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Costo variable (COP/kWh)</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Participación OEF</th></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">1</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">CARTAGENA 2</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">fuel oil</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">2,064.52</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">0.31%</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">2</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">TERMODORADA 1</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">1,212.81</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">0.38%</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">3</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">MERILECTRICA 1</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">1,138.12</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">1.07%</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">4</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">TERMONORTE</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">1,083.23</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">0.82%</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">5</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">BARRANQUILLA 4</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">956.78</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">0.47%</td></tr>
+</table>
+
+<h2>Tendencia</h2>
+<p>La serie de PME proyectado muestra una tendencia bajista (-6.8 COP/kWh por mes) a lo largo del horizonte de 23 meses, con valor mínimo de 805.44 COP/kWh en Jun-2027 y máximo de 1,083.23 COP/kWh en Jun-2026. A continuación se descomponen los principales movimientos de la curva, atribuyendo cada tramo a su driver causal:</p>
+<p><strong>Transición histórico → proyección.</strong> El último dato real publicado (May-2026: 1,160.72 COP/kWh) se conecta con el primer mes proyectado (Jun-2026: 1,083.23 COP/kWh) mediante una caída de 77.49 COP/kWh (-6.7%). Esta discontinuidad refleja el ajuste entre el régimen observado en el mercado spot y el escenario de combustibles proyectado, donde el diesel actúa como marginal del primer mes.</p>
+<p><strong>Tramo de subida Jun-2027 → Abr-2028 (+15.6% en 10 meses).</strong> El PME pasa de 805.44 a 930.72 COP/kWh, impulsado por los precios proyectados del diesel y su correlación con el Brent, que se traduce en un mayor costo variable de la planta marginal (diesel en el margen).</p>
+<p><strong>Tramo de bajada Jun-2026 → Jun-2027 (-25.6% en 12 meses).</strong> El PME desciende de 1,083.23 a 805.44 COP/kWh, reflejando la trayectoria descendente de los precios proyectados del diesel y su correlación con el Brent.</p>
+<p><strong>Puntos de inflexión.</strong> La serie presenta cambios de pendiente en: Jun-2027 (mínimo local en 805.44 COP/kWh). Estos puntos suelen coincidir con cambios en la planta marginal o con quiebres en la trayectoria de los combustibles proyectados.</p>
+<p><strong>Cola del horizonte (Feb-2028 → Abr-2028, 3 meses).</strong> Estos meses tienen menor confianza estadística porque las proyecciones del EIA Short-Term Energy Outlook (STEO) cubren 20 de los 23 meses del horizonte; los restantes 3 meses se completan por forward-fill del último valor disponible. La interpretación de la cola debe enfocarse en el nivel asintótico de los combustibles, no en variaciones mensuales finas.</p>
+<p><strong>Cambios en la planta marginal a lo largo del horizonte.</strong></p>
+<p>Se identifican los siguientes cambios en la planta que define el PME:</p>
+<table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.95rem;">
+<tr><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Mes</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Nueva planta marginal</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Combustible</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Planta anterior</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Combustible anterior</th></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Sep-2026</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">BARRANQUILLA 4</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">TERMONORTE</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Oct-2026</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">MERILECTRICA 1</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">BARRANQUILLA 4</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Oct-2027</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">FLORES I CC</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">MERILECTRICA 1</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">diesel</td></tr>
+</table>
+<p>Estos cambios reflejan la convergencia o divergencia de los costos variables de las plantas térmicas conforme evolucionan los precios proyectados de los combustibles a lo largo del horizonte.</p>
+
+<h2>Comparación con el PME observado</h2>
+<p>El promedio de los últimos 6 meses de PME real publicado por XM (Dic-2025 a May-2026) fue de 939.48 COP/kWh. La proyección se ubica 39.80 COP/kWh por debajo de este valor (-4.2%), dado que los precios proyectados del diesel resultan inferiores a los observados en el período reciente.</p>
+
+<h2>Supuestos y factores de riesgo</h2>
+<p>Este análisis se basa en los siguientes supuestos principales:</p>
+<ul>
+  <li>Los precios de combustibles siguen la trayectoria del escenario de precios altos, que incorpora un entorno de tensión geopolítica sobre los precios internacionales del crudo y sus derivados.</li>
+  <li>Las asignaciones de Obligaciones de Energía Firme se mantienen conforme a las vigencias del Cargo por Confiabilidad publicadas por el ASIC.</li>
+  <li>El análisis considera únicamente plantas de generación actualmente en operación comercial.</li>
+  <li>Los costos de operación, mantenimiento y otros costos variables se actualizan anualmente con una tasa de indexación del 2%.</li>
+  <li>Se asume una tasa de cambio de 3,700 COP/USD.</li>
+</ul>
+<p>Entre los factores que podrían alterar significativamente esta proyección se encuentran:</p>
+<ul>
+  <li>Variaciones en el precio internacional del crudo Brent, que impactarían directamente los precios del diesel y otros combustibles derivados del petróleo.</li>
+  <li>Movimientos en la tasa de cambio, dado que una depreciación del peso colombiano encarecería los combustibles importados (GNL, diesel, fuel oil).</li>
+  <li>Cambios en la composición del parque generador o en las asignaciones de OEF, que podrían modificar la estructura de la curva de oferta.</li>
+  <li>Modificaciones regulatorias en la metodología de cálculo del PME por parte de la CREG, o ajustes en los parámetros de costos regulados.</li>
+  <li>Restricciones en el suministro de gas natural, que podrían forzar la operación con combustibles alternativos de mayor costo.</li>
+</ul>
+
+<h2>Fuentes de precios de combustibles</h2>
+<p>Los precios proyectados de combustibles utilizados en esta estimación se construyeron a partir de las siguientes fuentes públicas:</p>
+<table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.95rem;">
+<tr><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Combustible</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Fuente principal</th><th style="background:var(--accent-light); padding:8px 12px; text-align:left; border-bottom:2px solid var(--border);">Referencia</th></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Fuel oil</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Escalado proporcional al Brent crudo</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">EIA Short-Term Energy Outlook (STEO), marzo 2026</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Futuros de TTF + prima de regasificación y transporte a Colombia</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Goldman Sachs Commodities Research, marzo 2026; Argus Media</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Diesel (Caribe e Interior)</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Proyección EIA de precios de diesel, ajustados por márgenes de refinación</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">EIA STEO marzo 2026; Supply Chain Dive</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">GLP</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Escalado proporcional al Brent crudo</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">IEA Oil Market Report, marzo 2026</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Gas natural (Caribe e Interior)</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Precios regulados del mercado doméstico colombiano</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Sin ajuste de escenario</td></tr>
+<tr><td style="padding:8px 12px; border-bottom:1px solid #eee;">Carbón (Interior, Caribe, Guajira)</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Mercado doméstico colombiano</td><td style="padding:8px 12px; border-bottom:1px solid #eee;">Sin ajuste de escenario</td></tr>
+</table>
+<p>El escenario de precios refleja un entorno de precios altos en los mercados internacionales de petróleo y gas, con base en las proyecciones del EIA y analistas del mercado energético a marzo de 2026. Los precios de combustibles domésticos (gas natural y carbón) se mantienen sin ajuste dado su menor exposición a los mercados internacionales.</p>
+
+
+                <h2>Curva de oferta agregada</h2>
+                <p>La curva de oferta del primer mes de proyecci&oacute;n (Jun-2026) muestra las plantas ordenadas de menor a mayor costo variable. La zona sombreada indica el 2% marginal superior de las OEF, cuyo costo variable define el PME.</p>
+                <div class="chart-container">
+                    <iframe src="assets_pme_may_2026/curva_oferta.html" height="530" scrolling="no"></iframe>
+                </div>
+
+                <h2>Detalle mensual de la planta marginal</h2>
+                <p>La tabla muestra la planta que define el PME en cada mes proyectado, junto con su costo variable y participaci&oacute;n en las OEF. Las filas resaltadas indican cambios de planta marginal.</p>
+                <div class="chart-container">
+                    <iframe src="assets_pme_may_2026/tabla_planta_marginal.html" height="1040" scrolling="no"></iframe>
+                </div>
+
+                <div class="methodology">
+                    <strong>Nota metodol&oacute;gica.</strong> El PME se calcula seg&uacute;n la Resoluci&oacute;n CREG 140 de 2017. Se construye una curva de oferta ordenando todas las plantas con Obligaciones de Energ&iacute;a Firme (OEF) de menor a mayor costo variable. El PME corresponde al costo variable de la planta que, acumulando desde la m&aacute;s costosa, alcanza el 2% de participaci&oacute;n en las OEF (percentil 98 de la curva de costos). Los costos de combustible se proyectan seg&uacute;n el escenario seleccionado; COM y OCV se indexan al 2% anual desde su valor base 2025.
+                </div>
+
+                <h2>Fuentes de precios de combustibles</h2>
+                <p>Los precios proyectados de combustibles utilizados en esta estimaci&oacute;n se construyeron a partir de las siguientes fuentes p&uacute;blicas:</p>
+                <table style="width:100%; border-collapse:collapse; margin:16px 0; font-size:0.9rem;">
+                    <thead>
+                        <tr>
+                            <th style="background:#0e4d6e; color:white; padding:10px 12px; text-align:left; border-bottom:2px solid var(--border);">Combustible</th>
+                            <th style="background:#0e4d6e; color:white; padding:10px 12px; text-align:left; border-bottom:2px solid var(--border);">Fuente principal</th>
+                            <th style="background:#0e4d6e; color:white; padding:10px 12px; text-align:left; border-bottom:2px solid var(--border);">Referencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#ffffff;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Fuel oil</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Escalado proporcional al Brent crudo</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">EIA Short-Term Energy Outlook (STEO), marzo 2026</td>
+                        </tr>
+                        <tr style="background:#f5f5f3;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">GNL</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Futuros de TTF + prima de regasificaci&oacute;n y transporte a Colombia</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Goldman Sachs Commodities Research, marzo 2026; Argus Media</td>
+                        </tr>
+                        <tr style="background:#ffffff;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Diesel (Caribe e Interior)</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Proyecci&oacute;n EIA de precios de diesel, ajustados por m&aacute;rgenes de refinaci&oacute;n</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">EIA STEO marzo 2026; Supply Chain Dive</td>
+                        </tr>
+                        <tr style="background:#f5f5f3;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">GLP</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Escalado proporcional al Brent crudo</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">IEA Oil Market Report, marzo 2026</td>
+                        </tr>
+                        <tr style="background:#ffffff;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Gas natural (Caribe e Interior)</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Precios regulados del mercado dom&eacute;stico colombiano</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Sin ajuste de escenario</td>
+                        </tr>
+                        <tr style="background:#f5f5f3;">
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Carb&oacute;n (Interior, Caribe, Guajira)</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Mercado dom&eacute;stico colombiano</td>
+                            <td style="padding:8px 12px; border-bottom:1px solid #eee;">Sin ajuste de escenario</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>El escenario de precios refleja un entorno de precios altos en los mercados internacionales de petr&oacute;leo y gas, con base en las proyecciones del EIA y analistas del mercado energ&eacute;tico a marzo de 2026. Los precios de combustibles dom&eacute;sticos (gas natural y carb&oacute;n) se mantienen sin ajuste dado su menor exposici&oacute;n a los mercados internacionales.</p>
+            </div>
+
+            <hr>
+        </article>
+
+        <footer class="footer">
+            <a href="https://gonzalezsierra.co">gonzalezsierra.co</a> &middot; Mauro Gonz&aacute;lez Sierra
+        </footer>
+    </div>
+</body>
+</html>
