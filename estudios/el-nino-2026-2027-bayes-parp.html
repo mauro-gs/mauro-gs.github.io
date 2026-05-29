@@ -1,0 +1,358 @@
+<!doctype html>
+<!--
+  Convención de notación matemática para todo el estudio:
+    - Variables y expresiones matemáticas inline:  \( ... \)
+        ej.:  \(w_t\),  \(q_{\text{Niño}}\),  \(\pi_t(r)\)
+    - Ecuaciones destacadas en línea propia:       \[ ... \]
+    - Nombres de archivos, snippets de código, identificadores: <code> ... </code>
+    - MathJax 3 se carga desde CDN al final del <head>, después del CSS.
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Tendremos estrés energético en el sistema eléctrico colombiano durante el Súper Niño 2026-27? — gonzalezsierra.co</title>
+  <meta name="author" content="Mauro González Sierra">
+  <meta name="description" content="Filtro bayesiano sobre los escenarios PAR(p) del SDDP usado por XM. Pesos dinámicos sobre los cuantiles P05, Promedio y P95 integrando NOAA, IRI y aportes hídricos del SIN. Horizonte jul-2026 → abr-2027.">
+
+  <!-- Open Graph para preview en LinkedIn / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="¿Tendremos estrés energético en el sistema eléctrico colombiano durante el Súper Niño 2026-27?">
+  <meta property="og:description" content="Lo que el shock NOAA del 14 de mayo significa para la hidrología, las reservas y el margen térmico entre julio de 2026 y abril de 2027.">
+  <meta property="og:url" content="https://gonzalezsierra.co/estudios/el-nino-2026-2027-bayes-parp.html">
+  <meta property="og:image" content="https://gonzalezsierra.co/estudios/assets_nino2627/fig_shock_pesos.png">
+  <meta property="og:image:alt" content="Pesos dinámicos sobre los cuantiles PAR(p) antes y después del update NOAA del 14 de mayo de 2026.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="assets_nino2627/styles.css">
+  <style>
+    .back-home {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #d47700;
+      text-decoration: none;
+      margin-bottom: 20px;
+      opacity: 0.85;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s;
+    }
+    .back-home:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- MathJax 3 — render de LaTeX inline \( ... \) y display \[ ... \] -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <header class="estudio-header">
+    <div class="inner">
+      <a href="https://gonzalezsierra.co" class="back-home" aria-label="Volver a gonzalezsierra.co">← gonzalezsierra.co</a>
+      <h1 class="titulo-estudio">¿Tendremos estrés energético en el sistema eléctrico colombiano durante el Súper Niño 2026-27?</h1>
+
+      <p class="lead">Lo que el shock NOAA del 14 de mayo significa para la hidrología, las reservas y el margen térmico entre julio de 2026 y abril de 2027.</p>
+
+      <div class="meta-estudio">
+        <span><b>Autor:</b> Mauro González Sierra</span>
+        <span><b>Fecha:</b> 30 de mayo de 2026</span>
+        <span><b>Publicado en:</b> <a href="https://gonzalezsierra.co">gonzalezsierra.co</a></span>
+      </div>
+
+      <nav class="toc" aria-label="Tabla de contenidos">
+        <h2>Contenido</h2>
+        <ol>
+          <li><a href="#apertura">Apertura — el shock del 14 de mayo</a></li>
+          <li><a href="#contexto">Contexto — el SIN colombiano y los escenarios PAR(p)</a></li>
+          <li><a href="#metodologia">Metodología — el filtro bayesiano aplicado a tres cuantiles</a></li>
+          <li><a href="#resultados">Resultados — pesos dinámicos y aportes esperados</a></li>
+          <li><a href="#cierre">Conclusiones — qué hacer con esta información</a></li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="apertura" aria-labelledby="apertura-h2">
+      <h2 id="apertura-h2" hidden>Apertura</h2>
+
+      <p>En septiembre de 2024, tras el déficit de aportes que dejó el Fenómeno de El Niño 2023-24, la CREG activó <strong>por primera vez en los diez años de vigencia del mecanismo</strong> el Estatuto para Situaciones de Riesgo de Desabastecimiento contemplado en la Resolución <strong>CREG 026 de 2014</strong> (modificada por la Resolución <strong>CREG 209 de 2020</strong>). La activación, formalizada el 29 de septiembre por la Circular CREG 072 de 2024 y levantada el 22 de noviembre por la Resolución CREG 101-063 de 2024, es la herramienta de última instancia con la que el operador interviene cuando la confiabilidad del sistema no se sostiene con los precios ordinarios del mercado: durante su vigencia, el precio de oferta de las plantas hidráulicas se reemplaza por uno anclado al de la térmica más costosa. Apenas dieciocho meses después, el pronóstico actual de NOAA apunta a un nuevo evento de El Niño cuya masa de probabilidad se concentra en las categorías más intensas, y los embalses entran al horizonte 2026-27 sin haber recuperado del todo el colchón perdido durante el ciclo anterior.</p>
+
+      <p>Sobre ese telón de fondo, el <strong>14 de mayo de 2026</strong> NOAA publicó su pronóstico mensual ENSO y, en 35 días, la probabilidad de El Niño para junio (trimestre MJJ) pasó del 61&nbsp;% al 82&nbsp;%. Pero el dato más informativo está enterrado más profundo: la masa de probabilidad de El Niño se redistribuyó hacia las categorías de mayor intensidad. En la ventana de pico — el trimestre NDJ&nbsp;2026, centrado en diciembre — la categoría <em>very strong</em> pasó del 16&nbsp;% al 38&nbsp;% de la masa de Niño en un solo mes. Lo que cambió, en otras palabras, no fue solo «hay más Niño»; fue «hay más Niño <em>fuerte</em>».</p>
+
+      <table class="datos">
+        <caption>
+          Probabilidad NOAA de El Niño por trimestre — comparación entre la publicación del 9 de abril y la del 14 de mayo de 2026.
+          Notación: \(q_{\text{Niño}}\) denota la probabilidad de que el trimestre se clasifique como El Niño, es decir, la suma de las probabilidades de las cuatro categorías de intensidad — <em>weak</em>, <em>moderate</em>, <em>strong</em> y <em>very strong</em> — que publica NOAA.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Trimestre (mes central)</th>
+            <th scope="col" class="num">Prob. El Niño (abril)</th>
+            <th scope="col" class="num">Prob. El Niño (mayo)</th>
+            <th scope="col" class="num">Δ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>MJJ 2026 (junio)</td>          <td class="num">61&nbsp;%</td><td class="num">82&nbsp;%</td><td class="num">+21&nbsp;pp</td></tr>
+          <tr><td>JAS 2026 (agosto)</td>         <td class="num">87&nbsp;%</td><td class="num">96&nbsp;%</td><td class="num">+9&nbsp;pp</td></tr>
+          <tr><td>NDJ 2026 (diciembre)</td>      <td class="num">92&nbsp;%</td><td class="num">98&nbsp;%</td><td class="num">+6&nbsp;pp</td></tr>
+          <tr><td>DJF 2026-27 (enero 2027)</td>  <td class="num">(decay)</td><td class="num">96&nbsp;%</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+
+      <p>La pregunta que este estudio resuelve: <strong>¿qué esperar de la hidrología del sistema interconectado entre julio de 2026 y abril de 2027, y cómo se traduce ese shock en términos de confiabilidad energética para el sector eléctrico colombiano?</strong> Para estimar el efecto de El Niño sobre la hidrología del parque hidráulico colombiano, este estudio toma como insumo la simulación indicativa de XM publicada en la <strong>semana 21 de 2026</strong> (18–24 de mayo), que proporciona los tres escenarios representativos — \(P_{05}\), Promedio y \(P_{95}\) — del modelo PAR(p) del SDDP. Sobre esos tres escenarios se aplica una ponderación bayesiana que integra la información del pronóstico ENSO de NOAA, el IRI y los aportes hídricos observados del SIN. La distribución posterior resultante alimenta, en segundo lugar, la evaluación de si el sistema agregado tiene con qué cubrir la demanda bajo esos escenarios. La pregunta natural que sigue — si esa hidrología compromete la senda de referencia del Estatuto de Desabastecimiento — la abordo en un segundo estudio.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_shock_pesos.png" alt="Dos paneles de área apilada lado a lado: el izquierdo muestra los pesos posteriores sobre P05, Promedio y P95 calculados con información hasta abril 2026; el derecho los mismos pesos calculados después del update NOAA del 14 de mayo. La masa se transfiere de P95 a Promedio durante el pico (octubre a diciembre 2026) y de P95+Promedio a P05 durante la relajación (marzo y abril 2027).">
+        <figcaption>Pesos dinámicos sobre los escenarios PAR(p) antes y después del update NOAA del 14 de mayo. La masa de probabilidad se transfiere de <strong>P95 → Promedio</strong> durante el pico (oct–dic 2026) y de <strong>P95 + Promedio → P05</strong> durante la relajación (mar–abr 2027). El cambio más grande no está en el pico — donde el ensemble PAR(p) ya pone P05 en cola extrema — sino en los meses post-pico, donde el filtro sostiene la creencia de Niño cuando el snapshot plano de abril ya la había relajado.</figcaption>
+      </figure>
+
+      <p>Llegamos a este pronóstico en un sistema que ya viene tensionado. El embalse agregado del SIN está en <strong>67&nbsp;%</strong> al cierre de mayo, los aportes hídricos acumulados del año van en <strong>72.3&nbsp;%</strong> de la media histórica, y la oferta térmica del país tiene varios eventos programados en la ventana que viene — entre ellos el mantenimiento de la planta de regasificación SPEC en el cambio de julio a agosto, que restringe el gas disponible para generación durante cinco días. Ese punto de partida — embalse en zona media, aportes por debajo de la media, térmica con margen escaso — es el que va a recibir la materialización del Niño durante el segundo semestre de 2026.</p>
+
+      <p>El método combina tres fuentes de información — los pronósticos probabilísticos de <strong>NOAA</strong> (probabilidades por categoría de intensidad), del <strong>IRI</strong> (pronósticos trimestrales tricategóricos) y los <strong>aportes hídricos observados</strong> del SIN — en un filtro bayesiano recursivo. El filtro mantiene una creencia sobre el régimen ENSO (Niña / Neutral / Niño) que se actualiza mes a mes con cada nueva publicación, y sobre esa creencia calcula la probabilidad de materialización de los tres cuantiles del PAR(p). El output es una distribución posterior \(w_t = (w_{P_{05}},\, w_{\text{Prom}},\, w_{P_{95}})\) con \(\sum_i w_t(i) = 1\) para cada mes \(t\) del horizonte julio 2026 → abril 2027.</p>
+
+      <div class="callout">
+        <strong>Nota de honestidad metodológica.</strong> Trabajar con tres cuantiles representativos del PAR(p) en vez de las \(N\) trayectorias individuales del ensemble es una limitación de los datos disponibles, no una elección estilística. La consecuencia, que se verá explícitamente en la sección de Metodología, es que el filtro no asigna peso ilimitado a \(P_{05}\) aunque el Niño sea casi seguro: \(P_{05}\) representa el 5&nbsp;% más seco del ensemble, no el modo del régimen Niño histórico colombiano. Esa distinción es central para leer correctamente los resultados.
+      </div>
+
+    </section>
+
+    <section id="contexto" aria-labelledby="contexto-h2">
+      <h2 id="contexto-h2">Contexto</h2>
+
+      <h3>El SIN colombiano en una página</h3>
+
+      <p>El Sistema Interconectado Nacional opera con una capacidad efectiva neta cercana a los <strong>21.300&nbsp;MW</strong> al cierre de mayo de 2026, según el catálogo PARATEC publicado por XM. La composición está concentrada en hidráulica: alrededor del <strong>62&nbsp;%</strong> del parque son plantas hidráulicas (≈ 13.211&nbsp;MW), <strong>29&nbsp;%</strong> térmicas (≈ 6.213&nbsp;MW), <strong>9&nbsp;%</strong> solares (≈ 1.884&nbsp;MW) y una participación eólica marginal — Jepírachi ya no figura en operación y los proyectos de La Guajira no se han incorporado al SIN a la fecha de este estudio. De toda la hidráulica, lo que XM despacha centralmente —donde están los grandes embalses cabecera del sistema— suma del orden de 12.237&nbsp;MW, repartido entre plantas como Guavio, San Carlos, Ituango, Chivor, Sogamoso, Porce III, Guatapé, Betania, Porce II y El Quimbo, entre otras.</p>
+
+      <p>Estos embalses agregan una capacidad de almacenamiento del orden de <strong>16.918&nbsp;GWh</strong> — el verdadero <em>seguro</em> energético del sistema. Esa cifra define el espacio operativo del SIN: cuando los aportes hídricos son altos, los embalses llenan, la térmica opera marginalmente y los precios de bolsa permanecen bajos; cuando son bajos, la térmica corre como base y el nivel de los embalses se va consumiendo. El balance del sector eléctrico colombiano es, en buena medida, un balance hídrico — y por eso entender qué le va a pasar al recurso hidrológico durante el horizonte 2026-27 es la primera pregunta que hay que resolver.</p>
+
+      <h3>La teleconexión ENSO-Colombia</h3>
+
+      <p>La razón física por la que El Niño afecta tan directamente a Colombia está en el desplazamiento meridional de la Zona de Convergencia Intertropical (ZCIT) y en el debilitamiento de los vientos alisios que normalmente cargan de humedad las masas de aire del Pacífico. Cuando el Pacífico ecuatorial central se calienta, la ZCIT se ancla más al sur del ecuador climatológico y los alisios pierden fuerza; el resultado es una atmósfera más estable sobre las cuencas andinas, menor precipitación orográfica sobre la cordillera occidental y la cordillera central, y menores aportes a los embalses cabecera del sistema —Chuza, Guavio, Peñol-Guatapé, San Carlos, Salvajina—. La intensidad del efecto depende de la magnitud de la anomalía oceánica medida por el ONI, no solo de su signo.</p>
+
+      <p>Ese patrón se ve directamente en la historia hidrológica del SIN. Si tomamos los aportes mensuales del sistema entre 2000 y 2026, los comparamos contra el promedio histórico de cada mes y separamos cada observación por el régimen ENSO en que ocurrió, lo que aparece es una señal nítida: durante los meses de El Niño los aportes caen sistemáticamente por debajo del promedio, durante los de La Niña tienden a estar por encima, y durante los meses neutros oscilan en torno al promedio sin un sesgo claro.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_aportes_serie.png" alt="Serie temporal mensual de los aportes hídricos del SIN entre 2000 y 2026, comparados contra la media histórica, con cada mes coloreado por el régimen ENSO en que ocurrió (rojo: Niño, azul: Niña, gris: Neutral) y una media móvil de 12 meses en negro. Los meses rojos se concentran sistemáticamente debajo de la línea de referencia y los azules por encima.">
+        <figcaption>Aportes hídricos mensuales del SIN comparados contra la media histórica de cada mes, coloreados por régimen ENSO (2000-2026, 315 meses). La métrica del eje Y, conocida como log-ratio, indica cuánto se desvían los aportes de la media histórica: valores negativos significan déficit, positivos superávit. La línea negra es la media móvil de 12 meses. Los episodios secos más severos del periodo —2002-03, 2009-10, 2015-16, 2023-24— coinciden con los clústeres de puntos rojos.</figcaption>
+      </figure>
+
+      <p>Esta señal cualitativa se puede cuantificar ajustando una recta por régimen, que describe cuánto cambian los aportes por cada grado adicional de anomalía oceánica. El resultado, mostrado en la siguiente figura, es donde aparece el hallazgo metodológicamente más importante del análisis.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_teleconexion.png" alt="Diagrama de dispersión de la anomalía ONI mensual contra el desvío de los aportes hídricos del SIN respecto a la media histórica, separado por régimen ENSO (Niña, Neutral, Niño). Tres rectas de ajuste por régimen con bandas de confianza al 95 %. La recta de Niño tiene la pendiente más pronunciada y el ajuste más fuerte; las de Niña y Neutral son casi planas con bandas amplias.">
+        <figcaption>Anomalía ONI mensual versus log-ratio de aportes, separada por régimen ENSO. Cada punto es un mes del periodo 2000-2026. Las rectas son ajustes lineales por régimen; las bandas son intervalos de confianza al 95&nbsp;%. Lo que esta figura comunica: durante El Niño, la intensidad del indicador ONI predice de forma material cuánto se desvían los aportes de la media histórica —pendiente pronunciada, dispersión acotada—. Durante La Niña y Neutral, el valor del ONI no agrega información útil sobre la magnitud del efecto: las rectas son casi planas y los puntos se dispersan ampliamente. La consecuencia para el pronóstico es directa: el ONI es un predictor operativamente útil durante El Niño, e informativo solo del régimen durante los otros dos.</figcaption>
+      </figure>
+
+      <p>Hay una distinción operativa importante entre los tres regímenes que conviene precisar. La Niña y los meses neutros sí afectan los aportes —los puntos azules tienden a estar arriba de la media, los grises oscilan en torno a ella—, pero <strong>su intensidad no agrega información predictiva</strong>: una Niña moderada y una Niña fuerte producen aportes similares en promedio. En cambio, durante El Niño la intensidad sí importa de manera material: un Niño fuerte produce un déficit hidrológico claramente mayor que un Niño moderado. Esta asimetría tiene una consecuencia directa para el filtro bayesiano que describiremos en la Metodología: el filtro estima el régimen actual usando información de los tres estados (Niña, Neutral, Niño), pero <strong>solo modula la magnitud esperada del impacto hidrológico cuando el régimen es Niño</strong>. Para Niña y Neutral, el filtro asume el efecto típico del régimen sin ajustar por intensidad.</p>
+
+      <h3>El punto de partida — mayo de 2026</h3>
+
+      <p>El sistema entra al horizonte 2026-27 con tres marcadores que conviene tener presentes. <strong>Embalse agregado al 67&nbsp;%</strong> de su capacidad útil al cierre de mayo: una cifra que está por encima del umbral operativo crítico pero claramente debajo del nivel típico de pre-invierno hidrológico (julio-agosto suelen ver el embalse cercano al 80&nbsp;% antes de que arranque la temporada seca). <strong>Aportes acumulados del año al 72.3&nbsp;%</strong> de la media histórica: una sequía moderada heredada del ciclo anterior, no extrema, pero suficiente para que el colchón hídrico no se haya reconstruido del todo después del evento 2023-24. Y una <strong>demanda en torno a los 260&nbsp;GWh/día</strong> en días hábiles, alineada con la línea base de la proyección UPME pero con riesgo al alza por el efecto del Niño sobre el consumo de climatización en la región Caribe y en los valles del Cauca y del Magdalena.</p>
+
+      <p>A esa instantánea se suma un hecho operacional concreto en el horizonte inmediato: el mantenimiento programado de la planta de regasificación SPEC en Cartagena, del 30 de julio al 3 de agosto, que restringe el gas disponible para generación durante cinco días. Es uno de varios eventos programados que el sistema absorbe rutinariamente, pero merece registrarse desde ya porque pasa justo en el momento en que la térmica empieza a ser solicitada con más intensidad. Es el punto de partida desde el cual la materialización del Niño 2026-27 va a operar.</p>
+
+      <h3>Del recurso a la decisión: el rol del PAR(p)</h3>
+
+      <p>El sector eléctrico colombiano cuenta con un instrumento estandarizado para acotar el comportamiento hidrológico futuro: el modelo <strong>PAR(p)</strong> que XM ejecuta dentro del SDDP como parte de la simulación indicativa del despacho. Ese modelo genera, semana a semana, una banda de escenarios representativos del rango probable de aportes mes a mes en el horizonte que sigue. Tomado solo, el PAR(p) no decide cuál escenario es más probable; presenta un abanico. La pregunta operativa, entonces, no es <em>qué va a pasar</em> con la hidrología sino <strong>qué peso probabilístico asignar a cada uno de esos escenarios dada toda la información disponible sobre el estado actual del Pacífico ecuatorial</strong> — la publicación más reciente de NOAA, el pronóstico tricategórico del IRI, la serie de aportes observados del propio SIN. Esa es exactamente la pregunta que la siguiente sección, la Metodología, responde.</p>
+
+    </section>
+
+    <section id="metodologia" aria-labelledby="metodologia-h2">
+      <h2 id="metodologia-h2">Metodología</h2>
+
+      <h3>La pregunta del filtro</h3>
+
+      <p>La pregunta operativa que la Metodología responde se puede plantear en una frase: <strong>dado todo lo que sabemos hasta hoy —pronósticos oceánicos, pronósticos atmosféricos y aportes hídricos observados—, ¿qué tan probable es que cada uno de los tres regímenes ENSO (Niña, Neutral, Niño) sea el que efectivamente esté ocurriendo este mes?</strong> Y, una vez respondida esa pregunta, ¿cómo se traduce esa creencia sobre el régimen en pesos sobre los tres escenarios del PAR(p) que XM publica como insumo del despacho? El instrumento es un filtro bayesiano recursivo: una receta clásica para combinar, de manera disciplinada, lo que ya creíamos con lo que acabamos de observar.</p>
+
+      <p>El filtro no parte cada mes de cero. La creencia sobre el régimen de junio se construye sobre la creencia de mayo, propagada hacia adelante por una <strong>matriz de transición de Markov</strong> que captura el comportamiento estacional histórico del sistema ENSO. Esa matriz se estima con 76 años de la serie NOAA, mes calendario a mes calendario, y refleja un hecho conocido por la literatura climatológica: <strong>el ENSO tiene memoria, y esa memoria depende del mes del año</strong>. La probabilidad de que un mes en régimen Niño se mantenga en régimen Niño al pasar al mes siguiente no es la misma en abril que en noviembre.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_persistencia.png" alt="Tres líneas mes a mes mostrando la probabilidad de auto-transición de cada régimen ENSO (Niña azul, Neutral gris, Niño rojo) entre 1950 y 2026. La persistencia es marcadamente más baja durante la primavera boreal (marzo a mayo) y más alta durante el otoño boreal (septiembre a diciembre).">
+        <figcaption>Probabilidad de que el régimen ENSO permanezca igual al pasar de un mes calendario al siguiente, estimada sobre la serie NOAA 1950-2026. La «barrera de primavera boreal» es visible para los tres regímenes: marzo, abril y mayo tienen las persistencias más bajas. De septiembre a diciembre la persistencia supera el 90&nbsp;%. El filtro usa estas doce matrices estacionales para propagar la creencia hacia adelante mes a mes.</figcaption>
+      </figure>
+
+      <h3>La regla de Bayes, dicha en palabras</h3>
+
+      <p>La operación fundamental del filtro, por mes, es una aplicación directa de la regla de Bayes. Para cada régimen \(r\) ∈ {Niña, Neutral, Niño} y cada mes \(t\) del horizonte:</p>
+
+      \[
+        \pi_t(r) \;\;\propto\;\; P(\text{observación}_t \mid r) \;\times\; \pi_{t \mid t-1}(r)
+      \]
+
+      <p>Lo que está a la izquierda, \(\pi_t(r)\), es lo que queremos saber: dado lo que observamos, qué tan probable es cada régimen. Lo que está a la derecha tiene dos pedazos. El primero, \(P(\text{observación}_t \mid r)\), es la <em>verosimilitud</em>: cuán compatible es la observación con cada régimen. Se calibra empíricamente con la historia: si en los últimos 76 años los meses de Niño registraron ONI promedio cercano a +1.0&nbsp;°C, entonces observar hoy un ONI de +0.5&nbsp;°C es más compatible con Niño que con Niña, pero no tanto como un +1.5. El segundo pedazo, \(\pi_{t \mid t-1}(r)\), es la <em>creencia previa</em>: cuán probable era cada régimen antes de mirar la observación, viene del filtro del mes anterior propagada por la matriz de transición estacional que ya describimos.</p>
+
+      <p>El filtro repite esta operación mes a mes, integrando nueva información en cada paso. El posterior del mes \(t\) se convierte en el prior del mes \(t+1\). No hay ningún truco bayesiano sofisticado: lo que hay es disciplina —no se ignora información previa, no se sobrereacciona a un solo dato—.</p>
+
+      <h3>Las cuatro fuentes de información</h3>
+
+      <p>El filtro consume cuatro fuentes, cada una entregando información distinta sobre el estado del Pacífico ecuatorial y del recurso hídrico colombiano:</p>
+
+      <ol>
+        <li><strong>ONI (NOAA).</strong> El índice oceánico observado. Es la medida más directa del estado del Pacífico ecuatorial — anomalía de temperatura superficial del mar en la región Niño 3.4. El filtro lo usa como verosimilitud gaussiana calibrada por régimen sobre toda la historia 1950-2026.</li>
+        <li><strong>Pronóstico CPC NOAA por intensidad.</strong> Publicación mensual del <em>Climate Prediction Center</em> que da probabilidades para los próximos nueve trimestres, desagregadas por categorías de intensidad —<em>weak</em>, <em>moderate</em>, <em>strong</em>, <em>very strong</em>— cuando el régimen pronosticado es El Niño. Esta es la fuente que captura el «shock del 14 de mayo» descrito en la apertura.</li>
+        <li><strong>Pronóstico IRI.</strong> Pronóstico tricategórico (Niña / Neutral / Niño) del <em>International Research Institute for Climate and Society</em> de Columbia University, basado en un ensemble multi-modelo. Aporta una segunda opinión sobre el horizonte trimestral, útil para no sobre-pesar la lectura puramente NOAA.</li>
+        <li><strong>Aportes hídricos observados del SIN.</strong> La única fuente local. Permite anclar el estado oceánico global a lo que efectivamente le pasa al sistema colombiano. Mes a mes, el filtro compara el aporte observado con lo que cada régimen produciría típicamente —según la calibración mensual histórica de los últimos 26 años—.</li>
+      </ol>
+
+      <p>Las cuatro fuentes son aproximadamente independientes condicional al régimen verdadero, así que se combinan multiplicativamente. Cada una entra al filtro con un factor de confianza que regula cuánto pesa relativamente: ONI y aportes pesan al máximo por ser medidas directas; los pronósticos NOAA e IRI entran con temperatura menor que uno, porque son pronósticos y no observaciones.</p>
+
+      <h3>Modulación por intensidad y proyección al horizonte</h3>
+
+      <p>Cuando el filtro determina que el régimen es Niño con alta probabilidad, la pregunta operativa cambia. Ya no es «qué tan probable es Niño», sino «qué tan intenso será». Aquí entra la innovación metodológica del filtro respecto a un filtro bayesiano clásico de tres regímenes. La modulación por intensidad usa la cuantificación de la Sección 2: por cada grado adicional de ONI esperado durante el evento, el aporte hidrológico esperado baja aproximadamente \(\beta_{\text{Niño}} = -0.244\) unidades del log-ratio (\(p &lt; 10^{-8}\), \(R^2 = 0.348\) sobre 79 meses históricos). Esta modulación se aplica <strong>únicamente durante régimen Niño</strong> — la asimetría que documentamos en la Sección 2: durante Niña y Neutral, el filtro asume el efecto típico del régimen sin ajustar por intensidad, porque la intensidad no agrega información predictiva en esos dos estados.</p>
+
+      <p>La <em>proyección rolling</em> aplica la mecánica anterior hacia adelante, mes a mes, desde el pivote del filtro —mayo de 2026, el último mes con observaciones completas— hasta abril de 2027. Cada mes futuro recibe la información que le corresponde: la publicación más reciente NOAA del trimestre cuyo mes central coincide con ese mes, el pronóstico IRI tricategórico equivalente, y la propagación markoviana del posterior del mes anterior. Cuando NOAA publica probabilidades para los nueve trimestres futuros, el filtro las usa directamente; cuando se agotan los trimestres publicados, el filtro extiende el horizonte aplicando un factor de decaimiento trimestral que devuelve gradualmente masa probabilística al régimen Neutral.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_proyeccion_regimen.png" alt="Área apilada de la probabilidad mensual de cada régimen ENSO entre mayo de 2026 y abril de 2027, según la proyección rolling del filtro con información NOAA hasta el 14 de mayo. Niño domina entre julio de 2026 y enero de 2027, alcanzando 99.6 por ciento en diciembre. Triángulos negros marcan los meses donde se aplicó una actualización con publicación NOAA o IRI.">
+        <figcaption>Proyección bayesiana del régimen ENSO mes a mes, desde el pivote (mayo 2026) hasta abril 2027, con información NOAA hasta el 14 de mayo. La probabilidad de Niño crece sostenidamente de julio a diciembre alcanzando 99.6&nbsp;% en el pico (NDJ centrado en diciembre), y se relaja gradualmente hacia abril 2027 conforme la información futura pierde fuerza por el factor de decay trimestral. Los triángulos negros marcan los meses donde se aplicó actualización con la publicación NOAA.</figcaption>
+      </figure>
+
+      <h3>De régimen a escenarios PAR(p): por qué el peso de P05 no domina</h3>
+
+      <p>El modelo PAR(p) que XM ejecuta dentro del SDDP no produce una predicción única de aportes hídricos. Produce un conjunto de trayectorias estocásticas que reflejan la incertidumbre intrínseca del recurso hídrico futuro. De esas trayectorias, XM publica como referencia tres escenarios representativos: el \(P_{05}\) (el escenario seco extremo, donde solo el 5&nbsp;% de las trayectorias son más secas), el <strong>Promedio</strong> (la trayectoria media del ensemble), y el \(P_{95}\) (el escenario húmedo extremo, donde solo el 5&nbsp;% son más húmedas). Estos tres escenarios son los que efectivamente alimentan los procesos de planeación y simulación del despacho indicativo del Sistema Eléctrico Colombiano. La pregunta operativa es: dado lo que sabemos sobre el régimen ENSO esperado, ¿qué peso probabilístico le asignamos a cada uno mes a mes?</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_cuantiles_parp.png" alt="Trayectoria mensual de los tres escenarios PAR(p) en el horizonte jul-2026 a abr-2027: P95 (azul, escenario húmedo) en la parte superior, Promedio (gris) en el centro y P05 (rojo, escenario seco) en la parte inferior. Una banda gris clara entre P05 y P95 ilustra el rango del ensemble. Una línea punteada gris oscura muestra la media histórica mensual del SIN para referencia.">
+        <figcaption>Los tres escenarios representativos del PAR(p) en el horizonte de este estudio. La banda gris clara entre \(P_{05}\) y \(P_{95}\) ilustra el rango del ensemble: el \(P_{95}\) (azul) refleja un horizonte hidrológicamente favorable, el Promedio (gris) la trayectoria media, y el \(P_{05}\) (rojo) un horizonte significativamente seco. La línea punteada gris oscura es la media histórica mensual del SIN para referencia. Sobre estos tres escenarios el filtro bayesiano asigna pesos probabilísticos mes a mes.</figcaption>
+      </figure>
+
+      <p>Hay un detalle en la figura anterior que merece destacarse: el Promedio del ensemble PAR(p) está sistemáticamente por debajo de la media histórica en todo el horizonte. Esto es llamativo, porque el PAR(p) es un modelo puramente estadístico sobre la serie histórica de aportes —no recibe el estado actual del Pacífico ecuatorial como insumo—. Lo que esto sugiere es que el modelo ya captura, a partir de las propiedades estadísticas recientes de los aportes, parte del déficit hidrológico esperado para el horizonte. El aporte que el filtro bayesiano agrega es complementario: integra explícitamente la información ENSO observada y proyectada, refinando los pesos sobre los tres escenarios para reflejar el régimen esperado mes a mes.</p>
+
+      <p>El último paso del filtro es traducir la creencia sobre el régimen ENSO a pesos sobre esos tres escenarios. Para cada mes del horizonte, el filtro evalúa cuán compatible es cada uno —\(P_{05}\), Promedio, \(P_{95}\)— con el régimen esperado.</p>
+
+      <p>La intuición es que en un mes con régimen Niño esperado, los aportes deberían parecerse más al \(P_{05}\) que al \(P_{95}\) — pero esa intuición es solo parcialmente correcta, y la sutileza importa.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_porque_p05.png" alt="Distribución gaussiana de aportes esperados durante régimen Niño en diciembre 2026 calibrada con modulación por intensidad. Tres líneas verticales marcan los cuantiles del PAR(p): Promedio cerca del centro, P95 en la cola húmeda y P05 en la cola seca aproximadamente a tres desviaciones estándar del centro. Caja explicativa indicando que aunque la probabilidad de Niño es 99.6 por ciento, el peso de P05 es solo 1.3 por ciento.">
+        <figcaption>Distribución gaussiana de aportes esperados durante régimen Niño en diciembre 2026, calibrada con la modulación por intensidad del filtro. Las tres líneas verticales marcan los cuantiles del PAR(p): Promedio (gris) cae cerca del centro de la distribución, \(P_{95}\) (azul) en la cola húmeda, \(P_{05}\) (rojo) en la cola seca a aproximadamente tres desviaciones estándar del centro. Aunque la probabilidad de Niño es 99.6&nbsp;%, el peso bayesiano de \(P_{05}\) es solo 1.3&nbsp;% — porque \(P_{05}\) representa el extremo seco del ensemble PAR(p), no el modo típico de un Niño histórico colombiano.</figcaption>
+      </figure>
+
+      <p>Lo que esto significa en términos operativos: <strong>el filtro no infla artificialmente el peso del escenario más seco solo porque la probabilidad de Niño sea alta</strong>. Lo que hace es transferir masa probabilística del \(P_{95}\) (escenario húmedo) hacia el Promedio durante el pico del evento, y solo en la fase de relajación post-pico aparece una redistribución material hacia el \(P_{05}\). Esta honestidad geométrica es la diferencia entre un análisis cuantitativo creíble y una sobre-estimación del riesgo: nada en la metodología fuerza al modelo a contar como muy probable algo que la historia hidrológica colombiana no respalda como probable.</p>
+
+      <p>El aparato está calibrado con 76 años de datos NOAA, 26 años de aportes hídricos del SIN, y los 9 trimestres futuros que publican NOAA y el IRI. La replicación de los coeficientes centrales del filtro contra resultados publicados independientemente confirma que la implementación es correcta. Lo que viene en la Sección de Resultados es la aplicación concreta: cómo se mueven los pesos \(w_t\) entre los snapshots de abril y mayo, qué dice el balance energético agregado sobre el esfuerzo del sistema durante el horizonte, y cuáles son las contingencias operativas que el balance mensual no captura. El documento técnico completo del filtro está disponible bajo solicitud.</p>
+
+    </section>
+
+    <section id="resultados" aria-labelledby="resultados-h2">
+      <h2 id="resultados-h2">Resultados</h2>
+
+      <h3>El shock bayesiano del 14 de mayo</h3>
+
+      <p>El filtro bayesiano no apareció el 14 de mayo. Para esa fecha ya estaba operando con la publicación NOAA del 9 de abril, y ese snapshot previo ya señalaba probabilidad creciente de El Niño hacia el segundo semestre de 2026. Lo que cambia con la publicación del 14 de mayo no es la dirección del pronóstico —que era la misma— sino su <strong>intensidad</strong>: la masa de probabilidad se desplaza hacia las categorías de Niño fuerte y muy fuerte, lo que en el lenguaje del filtro se traduce en una modulación más seca de los aportes esperados durante el evento. La consecuencia operativa es una redistribución material de los pesos \(w_t\) sobre los tres escenarios del PAR(p), tanto en el pico del evento como —y esto es lo menos intuitivo— en la fase de relajación post-pico.</p>
+
+      <p>El shock se ve mejor en los números. En <strong>diciembre de 2026</strong> (pico del evento), el peso del escenario \(P_{95}\) baja del <strong>26&nbsp;%</strong> al <strong>14&nbsp;%</strong> entre los snapshots de abril y mayo, mientras el Promedio absorbe esa masa (del 74&nbsp;% al <strong>85&nbsp;%</strong>). En <strong>abril de 2027</strong> (fase de relajación), \(w_{P_{05}}\) sube del 8&nbsp;% al <strong>21&nbsp;%</strong> y el Promedio cede masa (del 81&nbsp;% al 70&nbsp;%). El filtro está diciendo dos cosas distintas según el momento del horizonte: durante el pico, el Niño hace que el escenario \(P_{95}\) sea poco creíble; durante la relajación, el sistema queda atrapado con probabilidad significativa de aportes secos porque el filtro sostiene la creencia de Niño donde el snapshot plano de abril ya la había relajado.</p>
+
+      <p>Lo que estos pesos significan operativamente se ve mejor en la magnitud del recurso esperado. Combinando los tres escenarios con sus pesos \(w_t\) mes a mes se obtiene la trayectoria de aportes esperados del sistema: una línea única que el filtro proyecta como mejor estimador del recurso bajo toda la información disponible.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_aportes_esperados.png" alt="Aportes hídricos esperados del SIN según el filtro bayesiano con información hasta el 14 de mayo de 2026 (línea negra), comparados contra la media histórica mensual (línea naranja punteada) y la banda del ensemble PAR(p) entre P05 y P95. La línea esperada cae sostenidamente por debajo de la media histórica durante todo el horizonte; el valle ocurre en enero de 2027 con aportes esperados al 62 por ciento de la media histórica.">
+        <figcaption>Aportes hídricos esperados del SIN según el filtro bayesiano con información hasta el 14 de mayo de 2026, comparados contra la media histórica mensual y la banda del ensemble PAR(p) (\(P_{05}\) a \(P_{95}\)). La línea negra es el aporte esperado ponderado por los pesos del filtro. La separación entre la línea esperada y la media histórica refleja el déficit hidrológico proyectado: el valle del horizonte cae en enero de 2027 con aportes esperados al <strong>62&nbsp;%</strong> de la media histórica.</figcaption>
+      </figure>
+
+      <p>Esta línea negra es el insumo hidrológico del balance que viene a continuación. La pregunta operativa, una vez se traduce la creencia ENSO a una expectativa concreta sobre el recurso, es si el sistema agregado tiene con qué cubrir la demanda bajo esos aportes esperados. Para responderla pasamos del filtro al balance energético.</p>
+
+      <h3>El balance energético del horizonte</h3>
+
+      <p>El balance enfrenta tres bloques de oferta contra una proyección de demanda. La <strong>BASE</strong> agrega la generación menor del sistema —filos de agua bajo 20&nbsp;MW, solar utility, distribuida, cogeneración y autogeneración térmica— ponderada por sus factores de planta calibrados para condición Niño. La <strong>TÉRMICA despachada centralmente</strong> entra como techo operativo a cubrir lo que la base no alcanza. La <strong>HIDRÁULICA con embalses</strong> cierra el balance: lo que no cubren ni la base ni la térmica sale de los embalses despachados centralmente, alimentados por los aportes esperados del filtro. La demanda viene del escenario superior 68&nbsp;% de la proyección UPME, consistente con la referencia actual de ~260&nbsp;GWh/día en días hábiles, ajustada al alza por efecto del Niño sobre la demanda de climatización en costa Caribe y los valles interiores.</p>
+
+      <p>El balance descansa en dos premisas operativas que conviene precisar. La primera: la <strong>térmica disponible se modela con la disponibilidad real observada por combustible</strong> —carbón y gas, excluyendo combustibles líquidos que son respaldo de emergencia, no operación normal—. La cifra realista del parque térmico es del orden de <strong>3.300&nbsp;MW</strong> equivalentes promedio del horizonte; eso es aproximadamente un <strong>38&nbsp;%</strong> menos que los 5.795&nbsp;MW de capacidad efectiva nominal que reporta XM en PARATEC. Sustituir el nominal por el observado es lo que permite leer el balance como una representación creíble del esfuerzo operativo. La segunda premisa: los aportes hídricos al sistema de embalses son la <em>línea negra</em> de la figura anterior —el aporte esperado del filtro bayesiano—, no el escenario Promedio crudo del PAR(p).</p>
+
+      <p>Para acotar la incertidumbre operativa de la térmica se manejan tres escenarios, todos restringidos respecto a la disponibilidad reportada. Ninguno representa una operación "ideal" del parque térmico; los tres son distintos grados de limitación de la disponibilidad observada de carbón&nbsp;+&nbsp;gas:</p>
+
+      <ul>
+        <li><strong>Térmica al 90&nbsp;%</strong> de su disponibilidad observada — escenario de operación estresada pero relativamente conservadora.</li>
+        <li><strong>Térmica al 80&nbsp;%</strong> — captura mantenimientos no planeados, restricciones puntuales de transporte de gas e indisponibilidades imprevistas adicionales.</li>
+        <li><strong>Térmica al 70&nbsp;%</strong> — cota inferior plausible bajo restricciones combinadas durante el horizonte.</li>
+      </ul>
+
+      <figure>
+        <img src="assets_nino2627/fig_balance.png" alt="Barras apiladas mensuales del balance energético del SIN entre julio de 2026 y abril de 2027, mostrando la composición de la oferta bajo el escenario de térmica al 90 por ciento como referencia visual. Cada barra muestra la composición — base verde, térmica naranja, hidráulica azul — y la línea roja punteada marca la demanda UPME IC Sup 68 por ciento. Los valores están en GWh por día promedio del mes.">
+        <figcaption>Balance energético mensual del SIN en el horizonte jul-2026 → abr-2027, escenario de <strong>térmica al 90&nbsp;%</strong> mostrado como referencia visual de la composición de la oferta. Las barras apiladas muestran BASE (generación menor, ~26&nbsp;GWh/día), TÉRMICA usada (~79&nbsp;GWh/día con carbón&nbsp;+&nbsp;gas) e HIDRÁULICA con embalses (~152&nbsp;GWh/día, cierra el balance). La línea roja es la demanda UPME (~252-270&nbsp;GWh/día). Todos los valores en GWh/día promedio del mes.</figcaption>
+      </figure>
+
+      <p>La lectura visual del balance contiene un hallazgo estructural que vale la pena hacer explícito. La oferta térmica del horizonte está fijada como supuesto del análisis: cada escenario asume que la térmica entrega el 90&nbsp;%, 80&nbsp;% o 70&nbsp;% de su disponibilidad observada, y el balance distribuye la demanda restante entre BASE e HIDRÁULICA con embalses. La consecuencia es directa: <strong>cualquier indisponibilidad térmica que aparezca durante el horizonte por encima del supuesto del escenario —mantenimientos no programados, restricciones de transporte de gas, fallas— no se compensa con más térmica disponible, sino que sale directamente del embalse</strong>. La hidráulica con embalses absorbe toda la variabilidad adicional que el sistema enfrenta. Eso define el carácter del horizonte 2026-27: el embalse no es solo el seguro estructural del recurso hidrológico; es también el amortiguador de cualquier desvío térmico respecto al supuesto operativo.</p>
+
+      <p>La pregunta natural que sigue es si los embalses alcanzan para absorber todo lo que la térmica no puede cubrir bajo cada uno de los tres niveles térmicos analizados. Esa pregunta se contesta siguiendo la trayectoria de reservas agregadas mes a mes, contrastada contra un punto de referencia operativo: la <strong>meta de embalse del 30 de noviembre de 2026</strong> que se desprende de la senda de referencia para el invierno hidrológico 2026, calculada según la Resolución <strong>CREG 026/2014</strong>. Esa senda fija el nivel objetivo del embalse al cierre del invierno; para el 30-nov-2026 el valor publicado se sitúa en <strong>82.55&nbsp;%</strong> de la capacidad.</p>
+
+      <figure>
+        <img src="assets_nino2627/fig_reservas.png" alt="Trayectorias mensuales del nivel de embalse agregado del SIN entre julio de 2026 y abril de 2027 bajo tres escenarios de disponibilidad térmica (90 por ciento azul, 80 por ciento naranja, 70 por ciento rojo). Línea horizontal punteada en 82.55 por ciento marca la meta de embalse al 30-nov-2026 conforme a la Resolución CREG 026 de 2014, con un rombo destacado en el punto exacto de la meta. Zona inferior sombreada en rojo muy claro indica la zona crítica bajo el 30 por ciento; ninguna trayectoria la toca.">
+        <figcaption>Evolución del nivel de embalse agregado del SIN durante el horizonte, en % de la capacidad total (<strong>16.918&nbsp;GWh</strong>). Tres trayectorias térmicas (90&nbsp;% = <strong>71.2&nbsp;GWh/día</strong> promedio, 80&nbsp;% = <strong>63.3&nbsp;GWh/día</strong>, 70&nbsp;% = <strong>55.4&nbsp;GWh/día</strong>) comparadas contra la <strong>meta de embalse al 30-nov-2026 = 82.55&nbsp;%</strong> derivada de la senda CREG 026/2014. El mínimo del horizonte cae en marzo de 2027 en los tres escenarios: <strong>57.1&nbsp;%</strong> con térmica al 90&nbsp;%, <strong>44.3&nbsp;%</strong> al 80&nbsp;%, <strong>31.5&nbsp;%</strong> al 70&nbsp;%. Ningún escenario toca la zona crítica (&lt;&nbsp;30&nbsp;%).</figcaption>
+      </figure>
+
+      <p>La lectura honesta del resultado tiene dos planos. El primero es la confirmación: el balance agregado <strong>no muestra escenario de racionamiento</strong> bajo ninguno de los tres niveles de disponibilidad térmica analizados; ninguna trayectoria toca la zona crítica de menos del 30&nbsp;% durante el horizonte completo. El segundo plano es la distinción operativa nueva que aparece al contrastar contra la meta CREG. Con la <strong>térmica al 90&nbsp;%</strong>, el embalse cierra el 30 de noviembre en <strong>95.2&nbsp;%</strong> —12.6 puntos porcentuales por encima de la meta—. Con la <strong>térmica al 80&nbsp;%</strong>, cierra en <strong>88.2&nbsp;%</strong> —5.6 puntos por encima—. Con la <strong>térmica al 70&nbsp;%</strong>, cierra en <strong>81.1&nbsp;%</strong> —1.4 puntos por debajo—. El escenario de térmica al 70&nbsp;% es el único que no cumple la meta de la senda, y su mínimo del horizonte (31.5&nbsp;% en marzo de 2027) queda apenas <strong>1.5 puntos arriba de la zona de estrés</strong>. La diferencia entre cumplir o no cumplir la senda regulatoria se juega en 10 puntos porcentuales de disponibilidad térmica.</p>
+
+      <p>Esta sensibilidad al margen térmico se ilustra con un evento operativo concreto del horizonte inmediato: el mantenimiento programado de la planta de regasificación <strong>SPEC</strong> en Cartagena, del 30 de julio al 3 de agosto de 2026, que retira aproximadamente <strong>29&nbsp;GWh/día</strong> de gas natural del sistema durante cinco días. El balance mensual lo absorbe —julio pierde unos <strong>5&nbsp;GWh/día</strong> de techo térmico promedio—. A escala diaria, sin embargo, el sistema sí lo siente: durante los cinco días del mantenimiento pierde el <strong>56&nbsp;%</strong> del gas habitualmente disponible para generación. Es uno de varios eventos similares en el horizonte; lo que el balance hace evidente es que en un sistema con la térmica saturada todo el año, cualquier indisponibilidad —programada o no— sale directo del embalse.</p>
+
+      <p>Lo que el filtro bayesiano dice sobre los aportes esperados, lo que el balance dice sobre las trayectorias del embalse bajo distintos niveles de disponibilidad térmica, y la confrontación con la meta de cierre del invierno hidrológico convergen en una sola lectura: el sistema eléctrico colombiano puede atravesar el Súper Niño 2026-27 <strong>sin entrar en racionamiento agregado</strong>, pero el cumplimiento de la senda regulatoria depende críticamente de cómo opere el parque térmico durante el horizonte. Con la térmica al 80&nbsp;% o más de su disponibilidad observada, el sistema cierra noviembre por encima de la meta. Con la térmica al 70&nbsp;%, el sistema queda <strong>1.4 puntos porcentuales por debajo</strong>. La diferencia entre cumplir o no cumplir la senda se juega en 10 puntos porcentuales de disponibilidad térmica. La pregunta natural que sigue —qué significa formalmente para el sistema cumplir o no esta senda, y bajo qué condiciones se activan las medidas regulatorias correspondientes— es la que aborda el segundo artículo de esta serie.</p>
+
+    </section>
+
+    <section id="cierre" aria-labelledby="cierre-h2">
+      <h2 id="cierre-h2">Conclusiones</h2>
+
+      <h3>Lo que el estudio dice</h3>
+
+      <p>Tres hallazgos sustentan este análisis y conviene dejarlos explícitos al cierre.</p>
+
+      <p><strong>El sistema atraviesa el horizonte sin racionamiento agregado.</strong> Los tres niveles de disponibilidad térmica analizados (90&nbsp;%, 80&nbsp;% y 70&nbsp;%) producen trayectorias del embalse agregado que no tocan la zona crítica del 30&nbsp;%, y ninguno presenta déficit no cubierto durante el horizonte jul-2026 → abr-2027. La conclusión se sostiene en los tres escenarios térmicos restringidos del balance, sin necesidad de invocar un escenario optimista.</p>
+
+      <p><strong>El cumplimiento del nivel de embalse meta depende del nivel térmico.</strong> Con la térmica al 90&nbsp;% el sistema cierra el invierno hidrológico al <strong>95.2&nbsp;%</strong>, holgadamente por encima de la meta del 82.55&nbsp;%. Con la térmica al 80&nbsp;% lo cumple con 5.6 puntos porcentuales de holgura. Con la térmica al 70&nbsp;% queda <strong>1.4 puntos por debajo</strong>. La diferencia entre cumplir o no la senda regulatoria se juega en 10 puntos porcentuales de disponibilidad térmica observada.</p>
+
+      <p>Una precisión importante sobre cómo leer este resultado: el balance asume que la térmica entrega su capacidad disponible de manera <strong>constante y anticipada</strong> a lo largo del horizonte, lo cual no necesariamente refleja la operación real del sistema durante un evento de El Niño. En la práctica, el despacho térmico depende de las condiciones del mercado, del nivel de los embalses, de restricciones puntuales de transporte de gas y de decisiones operativas del CND. Lo que el balance indica, entonces, no es que la térmica vaya a operar al 90&nbsp;% durante todo el horizonte, sino que <strong>para alcanzar el nivel meta de embalse del 30 de noviembre de 2026, el parque térmico tendría que entregar en promedio el 90&nbsp;% de su disponibilidad observada durante el horizonte</strong>. Es una lectura normativa, no descriptiva: traduce el objetivo de embalse a un requerimiento sobre la generación térmica promedio del periodo.</p>
+
+      <p><strong>La hidráulica con embalses es el amortiguador estructural del horizonte.</strong> Cualquier indisponibilidad térmica que aparezca por encima del supuesto operativo del escenario —mantenimientos no programados, restricciones de transporte de gas, fallas— no se compensa con más térmica disponible, sino que sale directo del embalse. La disciplina con la que se opere ese amortiguador durante el segundo semestre de 2026 es lo más material a vigilar.</p>
+
+      <h3>Qué vigilar en los próximos meses</h3>
+
+      <p>El estudio se construyó con información cerrada al 14 de mayo de 2026. La siguiente lista resume los marcadores cuyo seguimiento permite refinar la lectura presentada acá y anticipar si el sistema se mueve hacia el escenario más optimista o el más restrictivo:</p>
+
+      <ul>
+        <li><strong>Publicaciones mensuales de NOAA CPC sobre ENSO.</strong> La próxima publicación es a mediados de junio. Si el shock del 14 de mayo se sostiene o se intensifica, las trayectorias proyectadas en este estudio se confirman; si se relaja, el filtro redistribuye masa probabilística de vuelta hacia regímenes menos secos. La proyección rolling del filtro se actualiza con cada nueva publicación.</li>
+
+        <li><strong>Aportes hídricos observados vs aportes esperados del filtro.</strong> Mes a mes, comparar lo que el SIN efectivamente recibe contra la línea de aportes esperados del estudio. Una desviación sistemática —positiva o negativa— sería señal de que el filtro necesita recalibrarse o que la teleconexión está operando con una intensidad distinta a la histórica.</li>
+
+        <li><strong>Evolución del nivel de embalse agregado.</strong> Es el indicador más directo del estado del sistema. Si la trayectoria observada se acerca al escenario del 70&nbsp;% más que al del 90&nbsp;%, las restricciones térmicas reales son materialmente mayores que las asumidas en el escenario más conservador.</li>
+
+        <li><strong>Disponibilidad térmica real por combustible.</strong> Es la variable que define en cuál de los tres escenarios opera realmente el sistema. Las publicaciones de XM sobre disponibilidad efectiva de carbón y gas son la fuente directa para anclar la lectura del balance contra la operación observada.</li>
+
+        <li><strong>Eventos operacionales puntuales.</strong> Mantenimientos programados de plantas grandes, restricciones de transporte de gas, indisponibilidades imprevistas. Cada uno individualmente menor, pero juntos contribuyen al desvío térmico agregado del horizonte y por tanto al drenaje adicional del embalse.</li>
+      </ul>
+
+      <p>El segundo artículo de esta serie abordará el marco regulatorio del Estatuto de Desabastecimiento —qué significa formalmente operar cerca o por debajo de la senda CREG, y cuáles son los indicadores y medidas que la regulación contempla para esas situaciones.</p>
+
+    </section>
+
+  </main>
+
+  <footer class="estudio-footer">
+    <div class="inner">
+      <h3>Referencias y citas</h3>
+      <ul class="citas">
+        <!-- TODO citas formales: NOAA CPC, IRI, XM. -->
+        <li>NOAA Climate Prediction Center — ENSO Diagnostic Discussion (publicaciones mensuales).</li>
+        <li>IRI / Columbia University — ENSO Forecast (publicaciones mensuales).</li>
+        <li>XM S.A. E.S.P. — Operación Comercial del Sistema, datos hidrológicos y escenarios PAR(p) del SDDP.</li>
+      </ul>
+      <p>Publicado en <a href="https://gonzalezsierra.co">gonzalezsierra.co</a> · Reutilización con cita.</p>
+      <p style="margin-top:12px;"><a href="https://gonzalezsierra.co" class="back-home">← Volver a todos los estudios</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
