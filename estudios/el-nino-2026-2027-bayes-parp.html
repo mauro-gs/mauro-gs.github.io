@@ -271,6 +271,14 @@
 
       <p>El balance enfrenta tres bloques de oferta contra una proyección de demanda. La <strong>BASE</strong> agrega la generación menor del sistema —filos de agua bajo 20&nbsp;MW, solar utility, distribuida, cogeneración y autogeneración térmica— ponderada por sus factores de planta calibrados para condición Niño. La <strong>TÉRMICA despachada centralmente</strong> entra como techo operativo a cubrir lo que la base no alcanza. La <strong>HIDRÁULICA con embalses</strong> cierra el balance: lo que no cubren ni la base ni la térmica sale de los embalses despachados centralmente, alimentados por los aportes esperados del filtro. La demanda viene del escenario superior 68&nbsp;% de la proyección UPME, consistente con la referencia actual de ~260&nbsp;GWh/día en días hábiles, ajustada al alza por efecto del Niño sobre la demanda de climatización en costa Caribe y los valles interiores.</p>
 
+      <p>En notación compacta, el balance se expresa como una identidad que se aplica mes a mes: la demanda se confronta contra la oferta de las tres fuentes y un término de déficit como variable de cierre.</p>
+
+      \[
+      D_m = \underbrace{G_m}_{\text{base}} + \underbrace{T_m}_{\text{térmica}} + \underbrace{H_m}_{\text{hidráulica}} + \underbrace{\delta_m}_{\text{déficit}}
+      \]
+
+      <p>El déficit es la diferencia entre la demanda y la oferta máxima cuando esta no alcanza a cubrirla. En los tres escenarios analizados, el déficit resulta cero a lo largo del horizonte: el sistema cubre la demanda mes a mes con el aporte combinado de las tres fuentes.</p>
+
       <p>El balance descansa en dos premisas operativas que conviene precisar. La primera: la <strong>térmica disponible se modela con la disponibilidad real observada por combustible</strong> —carbón y gas, excluyendo combustibles líquidos que son respaldo de emergencia, no operación normal—. La cifra realista del parque térmico es del orden de <strong>3.300&nbsp;MW</strong> equivalentes promedio del horizonte; eso es aproximadamente un <strong>38&nbsp;%</strong> menos que los 5.795&nbsp;MW de capacidad efectiva nominal que reporta XM en PARATEC. Sustituir el nominal por el observado es lo que permite leer el balance como una representación creíble del esfuerzo operativo. La segunda premisa: los aportes hídricos al sistema de embalses son la <em>línea negra</em> de la figura anterior —el aporte esperado del filtro bayesiano—, no el escenario Promedio crudo del PAR(p).</p>
 
       <p>Para acotar la incertidumbre operativa de la térmica se manejan tres escenarios, todos restringidos respecto a la disponibilidad reportada. Ninguno representa una operación "ideal" del parque térmico; los tres son distintos grados de limitación de la disponibilidad observada de carbón&nbsp;+&nbsp;gas:</p>
@@ -287,6 +295,14 @@
       </figure>
 
       <p>La lectura visual del balance contiene un hallazgo estructural que vale la pena hacer explícito. La oferta térmica del horizonte está fijada como supuesto del análisis: cada escenario asume que la térmica entrega el 90&nbsp;%, 80&nbsp;% o 70&nbsp;% de su disponibilidad observada, y el balance distribuye la demanda restante entre BASE e HIDRÁULICA con embalses. La consecuencia es directa: <strong>cualquier indisponibilidad térmica que aparezca durante el horizonte por encima del supuesto del escenario —mantenimientos no programados, restricciones de transporte de gas, fallas— no se compensa con más térmica disponible, sino que sale directamente del embalse</strong>. La hidráulica con embalses absorbe toda la variabilidad adicional que el sistema enfrenta. Eso define el carácter del horizonte 2026-27: el embalse no es solo el seguro estructural del recurso hidrológico; es también el amortiguador de cualquier desvío térmico respecto al supuesto operativo.</p>
+
+      <p>La evolución del embalse agregado a lo largo del horizonte se describe con una segunda identidad que captura el balance hídrico: lo que entra menos lo que sale del embalse, mes a mes.</p>
+
+      \[
+      R^{\text{fin}}_m = R^{\text{ini}}_m + \underbrace{A_m}_{\text{aportes}} - \underbrace{H_m}_{\text{hidráulica}} - \underbrace{V_m}_{\text{vertim.}}
+      \]
+
+      <p>Los vertimientos aparecen cuando los aportes superan la capacidad combinada del embalse y la hidráulica usada en el mes; el embalse no puede almacenarlos y se descartan. En los tres escenarios analizados los vertimientos resultan también cero: los aportes esperados nunca saturan la capacidad de almacenamiento. La conexión entre las dos ecuaciones es directa: la hidráulica con embalses cierra el balance energético y simultáneamente drena las reservas, lo que hace del nivel de embalse el indicador operativo más material del horizonte.</p>
 
       <p>La pregunta natural que sigue es si los embalses alcanzan para absorber todo lo que la térmica no puede cubrir bajo cada uno de los tres niveles térmicos analizados. Esa pregunta se contesta siguiendo la trayectoria de reservas agregadas mes a mes, contrastada contra un punto de referencia operativo: la <strong>meta de embalse del 30 de noviembre de 2026</strong> que se desprende de la senda de referencia para el invierno hidrológico 2026, calculada según la Resolución <strong>CREG 026/2014</strong>. Esa senda fija el nivel objetivo del embalse al cierre del invierno; para el 30-nov-2026 el valor publicado se sitúa en <strong>82.55&nbsp;%</strong> de la capacidad.</p>
 
