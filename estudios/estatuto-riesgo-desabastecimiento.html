@@ -1,0 +1,1161 @@
+<!doctype html>
+<!-- El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla — agosto de 2026 -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla — gonzalezsierra.co</title>
+  <meta name="author" content="Mauro González Sierra">
+  <meta name="description" content="Infograma del Estatuto para Situaciones de Riesgo de Desabastecimiento (CREG 026/2014 y sus reformas) y análisis de sus fallas de ejecución, de diseño normativo y de concepto, a las puertas del verano 2026-27.">
+
+  <!-- Open Graph para preview en LinkedIn / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla">
+  <meta property="og:description" content="Doce años de reformas, una activación y un condicionante del 70 % eliminado de urgencia en junio de 2026. Anatomía del mecanismo de última instancia del mercado eléctrico colombiano.">
+  <meta property="og:url" content="https://gonzalezsierra.co/estudios/estatuto-riesgo-desabastecimiento.html">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <style>
+    /* ===== Base del sitio ===== */
+    :root {
+      --azul-principal: #0e4d6e;
+      --rojo: #dc2626;
+      --azul-nina: #2563eb;
+      --naranja: #d47700;
+      --fondo: #fafaf8;
+      --texto: #111111;
+      --texto-sec: #4b5563;
+      --gris: #9ca3af;
+      --gris-claro: #e5e7eb;
+      --max-w: 760px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--fondo);
+      color: var(--texto);
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      font-size: 18px;
+      line-height: 1.65;
+      font-feature-settings: "kern", "liga", "calt";
+    }
+
+    header.estudio-header {
+      border-bottom: 1px solid var(--gris-claro);
+      padding: 3.5rem 1.25rem 2rem 1.25rem;
+      background: var(--fondo);
+    }
+    header.estudio-header > .inner,
+    main, footer.estudio-footer > .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    h1.titulo-estudio {
+      font-size: 2.0rem;
+      line-height: 1.2;
+      margin: 0 0 0.6rem 0;
+      color: var(--azul-principal);
+      font-weight: 700;
+    }
+    p.lead {
+      font-size: 1.15rem;
+      color: var(--texto-sec);
+      margin: 0 0 1.5rem 0;
+      font-style: italic;
+    }
+    .meta-estudio {
+      font-size: 0.9rem;
+      color: var(--texto-sec);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem 1.4rem;
+      margin: 0 0 1rem 0;
+    }
+    .meta-estudio b { color: var(--texto); font-weight: 600; }
+
+    .back-home {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--naranja);
+      text-decoration: none;
+      margin-bottom: 20px;
+      opacity: 0.85;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s;
+    }
+    .back-home:hover { opacity: 1; text-decoration: underline; }
+
+    nav.toc {
+      border: 1px solid var(--gris-claro);
+      padding: 1rem 1.25rem;
+      margin: 2rem 0 0 0;
+      background: #ffffff;
+      border-radius: 6px;
+    }
+    nav.toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--texto-sec);
+      margin: 0 0 0.6rem 0;
+    }
+    nav.toc ol {
+      list-style-position: inside;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    nav.toc ol ol { padding-left: 1.2rem; list-style-type: none; font-size: 0.92rem; }
+    nav.toc li { margin: 0.18rem 0; }
+    nav.toc a {
+      color: var(--azul-principal);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gris);
+    }
+    nav.toc a:hover { color: var(--rojo); border-bottom-color: currentColor; }
+
+    main { padding: 0 1.25rem 4rem 1.25rem; }
+
+    section { margin: 3rem 0 0 0; scroll-margin-top: 2rem; }
+    section h2 {
+      font-size: 1.5rem;
+      color: var(--azul-principal);
+      border-bottom: 2px solid var(--azul-principal);
+      padding-bottom: 0.3rem;
+      margin: 0 0 1.2rem 0;
+      font-weight: 700;
+    }
+    section h3 {
+      font-size: 1.15rem;
+      color: var(--texto);
+      margin: 1.6rem 0 0.6rem 0;
+      font-weight: 600;
+      scroll-margin-top: 2rem;
+    }
+    section h4 {
+      font-size: 1.0rem;
+      margin: 1.2rem 0 0.5rem 0;
+      font-weight: 600;
+    }
+
+    p { margin: 0 0 1rem 0; }
+    strong { color: var(--texto); font-weight: 600; }
+    em { color: var(--texto-sec); }
+    a { color: var(--azul-principal); }
+    a:hover { color: var(--rojo); }
+
+    figure {
+      margin: 2rem -1rem;
+      padding: 0;
+    }
+    figure img { width: 100%; height: auto; border-radius: 4px; }
+    figcaption {
+      font-size: 0.88rem;
+      color: var(--texto-sec);
+      margin: 0.6rem 0.5rem 0 0.5rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    table.datos {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      margin: 1.4rem 0;
+    }
+    table.datos th, table.datos td {
+      padding: 0.45rem 0.7rem;
+      border-bottom: 1px solid var(--gris-claro);
+      text-align: left;
+    }
+    table.datos th {
+      color: var(--texto-sec);
+      font-weight: 600;
+      background: #f0eee9;
+      border-bottom: 2px solid var(--gris);
+    }
+    table.datos td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .table-scroll { overflow-x: auto; }
+
+    code, .mono {
+      font-family: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+      font-size: 0.92em;
+      background: #f0eee9;
+      padding: 0.05rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .callout {
+      border-left: 4px solid var(--naranja);
+      background: #fff5e6;
+      padding: 0.85rem 1rem;
+      margin: 1.2rem 0;
+      font-size: 0.95rem;
+    }
+    .callout.cambio {
+      border-left-color: var(--azul-principal);
+      background: #eaf1f6;
+    }
+    .callout .callout-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--texto-sec);
+      margin-bottom: 0.3rem;
+    }
+
+    footer.estudio-footer {
+      border-top: 1px solid var(--gris-claro);
+      padding: 2.5rem 1.25rem 4rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--texto-sec);
+    }
+    footer.estudio-footer h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 0.7rem 0;
+    }
+    footer.estudio-footer .citas li { margin: 0.25rem 0; }
+
+    /* ===== Componentes del infograma ===== */
+
+    .panel {
+      margin: 2.6rem 0 0 0;
+      scroll-margin-top: 2rem;
+    }
+    .panel > h3 {
+      border-bottom: 1px solid var(--gris-claro);
+      padding-bottom: 0.35rem;
+    }
+    .panel-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      background: var(--azul-principal);
+      border-radius: 3px;
+      padding: 0.1rem 0.5rem;
+      margin-right: 0.5rem;
+      vertical-align: 0.12em;
+    }
+
+    /* Bloques más anchos que la columna de texto */
+    .wide {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1060px, calc(100vw - 2.5rem));
+    }
+
+    /* --- Panel A: línea de tiempo --- */
+    ol.timeline {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      padding: 30px 0 0 0;
+      margin: 1.6rem 0 0.4rem 0;
+      position: relative;
+    }
+    ol.timeline::before {
+      content: '';
+      position: absolute;
+      top: 9px;
+      left: 1.5%;
+      right: 1.5%;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg,
+        #0e4d6e 0%, #0e4d6e 26%,
+        #d47700 36%, #d47700 54%,
+        #dc2626 62%, #dc2626 68%,
+        #d47700 76%, #d47700 84%,
+        #9ca3af 94%, #9ca3af 100%);
+    }
+    .tl-item { position: relative; }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      top: -27px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--tl, var(--gris));
+      border: 2.5px solid var(--fondo);
+    }
+    .tl-card {
+      height: 100%;
+      background: #ffffff;
+      border: 1px solid var(--gris-claro);
+      border-top: 3px solid var(--tl, var(--gris));
+      border-radius: 6px;
+      padding: 0.6rem 0.65rem 0.7rem 0.65rem;
+    }
+    .tl-year {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--tl, var(--texto-sec));
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+    .tl-title {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 0.3rem;
+    }
+    .tl-desc {
+      font-size: 0.74rem;
+      line-height: 1.45;
+      color: var(--texto-sec);
+      margin: 0;
+    }
+    .tl-azul    { --tl: #0e4d6e; }
+    .tl-naranja { --tl: #d47700; }
+    .tl-rojo    { --tl: #dc2626; }
+    .tl-neutro  { --tl: #9ca3af; }
+
+    /* --- Panel B: tarjetas de índices, tabla de estados --- */
+    .indices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 1.4rem 0;
+    }
+    .indice-card {
+      background: #ffffff;
+      border: 1px solid var(--gris-claro);
+      border-radius: 6px;
+      padding: 0.9rem 1rem 1rem 1rem;
+    }
+    .indice-card h4 {
+      margin: 0 0 0.45rem 0;
+      font-size: 1.0rem;
+      color: var(--azul-principal);
+    }
+    .indice-card h4 .mono { font-size: 0.8em; vertical-align: 0.08em; }
+    .indice-card p { font-size: 0.88rem; margin-bottom: 0.5rem; }
+    .indice-card ul {
+      font-size: 0.85rem;
+      color: var(--texto-sec);
+      margin: 0.4rem 0 0 0;
+      padding-left: 1.1rem;
+    }
+    .indice-card li { margin: 0.25rem 0; }
+
+    .chip {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      padding: 0.08rem 0.6rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .chip-normal     { background: #e8f0f5; color: var(--azul-principal); }
+    .chip-vigilancia { background: #fff2df; color: #a35c00; }
+    .chip-riesgo     { background: #fde8e8; color: #b91c1c; font-weight: 500; }
+    .chip-na         { background: transparent; color: var(--texto-sec); border: 1.5px dashed var(--gris); }
+
+    tr.fila-na td {
+      border-top: 1.5px dashed var(--gris);
+      border-bottom: 1.5px dashed var(--gris);
+      background: #fbfaf7;
+    }
+    .nota-falla {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--naranja);
+      white-space: nowrap;
+    }
+
+    /* --- Panel C: leyenda de fórmula --- */
+    ul.leyenda {
+      list-style: none;
+      padding: 0;
+      margin: 0.8rem 0 1rem 0;
+      font-size: 0.88rem;
+      color: var(--texto-sec);
+    }
+    ul.leyenda li { margin: 0.3rem 0; }
+    ul.leyenda .mono { font-size: 0.82rem; }
+
+    /* --- Panel D: flujo institucional --- */
+    .flow {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: nowrap;
+      gap: 4px;
+      margin: 1.4rem 0;
+    }
+    .flow-step {
+      flex: 1 1 0;
+      min-width: 0;
+      background: #ffffff;
+      border: 1px solid var(--gris-claro);
+      border-radius: 6px;
+      padding: 0.6rem 0.55rem;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .flow-step .paso-meta {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--texto-sec);
+      margin-top: 0.4rem;
+    }
+    .flow-step.destacado {
+      border: 1.5px dashed var(--naranja);
+      background: #fff5e6;
+    }
+    .flow-arrow {
+      align-self: center;
+      flex: 0 0 auto;
+      color: var(--naranja);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0 1px;
+    }
+    .flow-titulo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--texto-sec);
+      margin: 1.4rem 0 0.2rem 0;
+    }
+
+    /* --- Panel E-bis: flujo temporal del dinero del EVE --- */
+    .flow-tiempo .flow-step { text-align: left; }
+    .paso-tiempo {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: var(--naranja);
+      border-radius: 3px;
+      padding: 0.08rem 0.45rem;
+      margin-bottom: 0.4rem;
+    }
+    .flow-step .paso-titulo {
+      display: block;
+      font-weight: 600;
+      font-size: 0.84rem;
+      margin-bottom: 0.25rem;
+    }
+    .flow-nota {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--texto-sec);
+      border-top: 1px dashed var(--gris-claro);
+      margin-top: 0.45rem;
+      padding-top: 0.4rem;
+    }
+
+    /* --- Panel E: medidas --- */
+    .medidas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 12px;
+      margin: 1.4rem 0 0.8rem 0;
+    }
+    .medida-card {
+      background: #ffffff;
+      border: 1px solid var(--gris-claro);
+      border-left: 3px solid var(--rojo);
+      border-radius: 6px;
+      padding: 0.7rem 0.8rem;
+    }
+    .medida-card h4 {
+      margin: 0 0 0.35rem 0;
+      font-size: 0.85rem;
+      color: var(--rojo);
+    }
+    .medida-card h4 .mono {
+      background: transparent;
+      padding: 0;
+      font-size: 0.9em;
+    }
+    .medida-card p {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: var(--texto-sec);
+      margin: 0;
+    }
+    .nota-pie {
+      font-size: 0.85rem;
+      color: var(--texto-sec);
+      font-style: italic;
+    }
+
+    /* --- Banda de cifras --- */
+    .metric-band {
+      background: #ffffff;
+      border-top: 2px solid var(--azul-principal);
+      border-bottom: 1px solid var(--gris-claro);
+      padding: 1.4rem 1.2rem 1rem 1.2rem;
+      margin: 2rem 0;
+      border-radius: 0 0 6px 6px;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .metric .metric-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--azul-principal);
+      display: block;
+      line-height: 1.3;
+    }
+    .metric .metric-num .peor { color: var(--rojo); }
+    .metric .metric-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--texto-sec);
+      margin-top: 0.25rem;
+      line-height: 1.4;
+    }
+    .metric .metric-delta {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      color: var(--rojo);
+      margin-top: 0.3rem;
+    }
+    .metric-fuente {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gris);
+      margin: 1rem 0 0 0;
+      text-align: right;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      ol.timeline {
+        display: block;
+        padding: 0 0 0 20px;
+        border-left: 3px solid var(--gris-claro);
+        margin-left: 6px;
+      }
+      ol.timeline::before { display: none; }
+      .tl-item { margin: 0 0 12px 0; }
+      .tl-item::before {
+        top: 14px;
+        left: -29px;
+        transform: none;
+      }
+      .indices-grid { grid-template-columns: 1fr; }
+      .flow { flex-direction: column; align-items: stretch; }
+      .flow-step { flex: 1 1 auto; }
+      .flow-arrow { transform: rotate(90deg); padding: 2px 0; }
+    }
+    @media (max-width: 700px) {
+      body { font-size: 16px; }
+      h1.titulo-estudio { font-size: 1.55rem; }
+      section h2 { font-size: 1.25rem; }
+      header.estudio-header { padding-top: 2rem; }
+    }
+  </style>
+
+  <!-- MathJax 3 — render de LaTeX inline \( ... \) y display \[ ... \] -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <header class="estudio-header">
+    <div class="inner">
+      <a href="https://gonzalezsierra.co" class="back-home" aria-label="Volver a gonzalezsierra.co">← gonzalezsierra.co</a>
+      <h1 class="titulo-estudio">El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla</h1>
+
+      <p class="lead">Doce años de reformas, una activación y un condicionante del 70&nbsp;% eliminado de urgencia en junio de 2026. Anatomía del mecanismo de última instancia del mercado eléctrico colombiano — y el mapa de sus fallas — a las puertas del verano 2026-27.</p>
+
+      <div class="meta-estudio">
+        <span><b>Autor:</b> Mauro González Sierra</span>
+        <span><b>Serie:</b> segundo artículo — sigue a <a href="el-nino-2026-2027-bayes-parp.html">¿Tendremos estrés energético durante el Súper Niño 2026-27?</a></span>
+        <span><b>Publicado en:</b> <a href="https://gonzalezsierra.co">gonzalezsierra.co</a></span>
+      </div>
+
+      <nav class="toc" aria-label="Tabla de contenidos">
+        <h2>Contenido</h2>
+        <ol>
+          <li><a href="#parte-1">Parte 1 — El Estatuto en siete paneles</a>
+            <ol>
+              <li><a href="#panel-a">A. Línea de tiempo normativa (2014-2026)</a></li>
+              <li><a href="#panel-b">B. Arquitectura vigente: índices y estados</a></li>
+              <li><a href="#panel-c">C. Las fórmulas: la banda X y la senda</a></li>
+              <li><a href="#panel-d">D. Flujo institucional: del cálculo a la Circular</a></li>
+              <li><a href="#panel-e">E. Qué se activa cuando se declara Riesgo</a></li>
+              <li><a href="#panel-e-bis">E-bis. El dinero del EVE — cómo fluye</a></li>
+              <li><a href="#panel-f">F. Evolución normativa comparada</a></li>
+              <li><a href="#contexto-2026">El contexto 2026 en cuatro cifras</a></li>
+            </ol>
+          </li>
+          <li><a href="#parte-2">Parte 2 — Análisis de fallas</a>
+            <ol>
+              <li><a href="#familia-1">Familia 1 — Fallas de ejecución</a></li>
+              <li><a href="#familia-2">Familia 2 — Fallas de diseño normativo</a></li>
+              <li><a href="#familia-3">Familia 3 — La falla conceptual</a></li>
+              <li><a href="#veredicto">Veredicto — ¿reforma quirúrgica o borrón y cuenta nueva?</a></li>
+            </ol>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="intro" aria-label="Introducción">
+      <p>El primer artículo de esta serie cerró con una cifra incómoda: para cumplir la meta de embalse del 30 de noviembre de 2026 que fija la senda de referencia, el parque térmico colombiano tendría que entregar en promedio al menos el 80&nbsp;% de su disponibilidad observada durante el horizonte. La pregunta que quedó abierta — <strong>qué significa formalmente cumplir o no esa senda, y qué pasa cuando no se cumple</strong> — es la que este artículo responde. La respuesta vive en un instrumento regulatorio que la mayoría del sector conoce de nombre y pocos han leído por dentro: el <strong>Estatuto para Situaciones de Riesgo de Desabastecimiento</strong> (ESRD), establecido por la Resolución CREG 026 de 2014 y reformado cuatro veces desde entonces.</p>
+
+      <p>El artículo tiene dos partes deliberadamente distintas. La <strong>Parte 1</strong> es un infograma: qué es el Estatuto, cómo se calculan sus índices, quién decide qué y qué se activa cuando el sistema entra en Riesgo — el mecanismo explicado sin opinión. La <strong>Parte 2</strong> es el análisis: diez fallas organizadas en tres familias — las de ejecución que la activación de 2024 dejó a la vista, las de diseño que se leen en la norma misma, y una falla conceptual que, sostengo, explica a las otras nueve.</p>
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- PARTE 1 — INFOGRAMA                                              -->
+    <!-- ================================================================ -->
+
+    <section id="parte-1" aria-labelledby="parte-1-h2">
+      <h2 id="parte-1-h2">Parte 1 — El Estatuto en siete paneles</h2>
+
+      <p>El ESRD es el mecanismo de <strong>última instancia</strong> del mercado mayorista: existe para el escenario en que el nivel de los embalses compromete el abastecimiento y, sin embargo, el precio de bolsa no está transmitiendo esa escasez — es decir, para cuando la señal de mercado falla. Mientras está activo, el operador interviene el precio de oferta de la generación hidráulica, ordena embalsar agua y fija metas diarias de generación térmica. Los siete paneles siguientes recorren su historia, su arquitectura vigente, sus fórmulas, su flujo institucional, sus medidas y su evolución comparada.</p>
+
+      <!-- ---------------- Panel A ---------------- -->
+      <div class="panel" id="panel-a">
+        <h3><span class="panel-tag">Panel A</span> Línea de tiempo normativa — doce años, siete hitos</h3>
+
+        <p>La historia del Estatuto es la historia de un índice que nunca ha marcado bien: primero no sonó cuando debía (2020), después una restricción de activación le impidió sonar (2021-2026), y en junio de 2026 esa restricción se eliminó de urgencia, semanas antes de la temporada que puede ponerlo a prueba de verdad.</p>
+
+        <div class="wide">
+          <ol class="timeline">
+            <li class="tl-item tl-azul">
+              <div class="tl-card">
+                <span class="tl-year">1997-2010</span>
+                <span class="tl-title">El antecedente</span>
+                <p class="tl-desc">Estatuto de Racionamiento (CREG 217/1997, mod. 119/1998). La experiencia de El Niño 2009-10 motiva reglas nuevas, pensadas para el <em>riesgo</em> de desabastecimiento, no para el racionamiento consumado.</p>
+              </div>
+            </li>
+            <li class="tl-item tl-azul">
+              <div class="tl-card">
+                <span class="tl-year">2014</span>
+                <span class="tl-title">Nace el ESRD</span>
+                <p class="tl-desc">Resoluciones CREG 026 y 155 de 2014. Tres índices — ED, PBP y AE — vigilan energía, precio y aportes. Mecanismo de última instancia para cuando el mercado no responde.</p>
+              </div>
+            </li>
+            <li class="tl-item tl-naranja">
+              <div class="tl-card">
+                <span class="tl-year">2020</span>
+                <span class="tl-title">El cuasi-evento</span>
+                <p class="tl-desc">Embalse en mínimo de 20 años y aportes al 60-70&nbsp;% de la media, pero los índices solo marcan Vigilancia: el AE no da señales oportunas. La CREG 209/2020 crea la senda de referencia y el índice NE, y elimina ED y AE.</p>
+              </div>
+            </li>
+            <li class="tl-item tl-naranja">
+              <div class="tl-card">
+                <span class="tl-year">2021</span>
+                <span class="tl-title">El condicionante del 70&nbsp;%</span>
+                <p class="tl-desc">La primera senda (verano 2020-21) produce un falso Riesgo por condiciones de borde (dic-2020, radicado E-2020-015538). La CREG 210/2021 responde: embalse por encima del 70&nbsp;% del volumen útil ⇒ NE Superior automático, mecanismo inhibido.</p>
+              </div>
+            </li>
+            <li class="tl-item tl-rojo">
+              <div class="tl-card">
+                <span class="tl-year">2024</span>
+                <span class="tl-title">Primera activación</span>
+                <p class="tl-desc">El 28 de septiembre de 2024 (Circular CREG 072) el Estatuto se activa por primera vez en su historia; se levanta el 22-nov-2024 (Res. 101 063). Ajustes sobre la marcha: 101 055 (reevaluación inmediata) y 101 059 (evaluación diaria cerca de la senda).</p>
+              </div>
+            </li>
+            <li class="tl-item tl-naranja">
+              <div class="tl-card">
+                <span class="tl-year">jun-2026</span>
+                <span class="tl-title">Se elimina el condicionante</span>
+                <p class="tl-desc">La senda de invierno 2026 supera el 70&nbsp;% desde el 3 de junio. El CND advierte (15-abr-2026, transcrito en la Res. 101 112) que el verano 2026-27 exige embalse &gt;80&nbsp;% y recomienda eliminar el condicionante. La Res. 101 112 (12-jun-2026) lo elimina: consulta pública de 3 días hábiles, sin concepto SIC por urgencia.</p>
+              </div>
+            </li>
+            <li class="tl-item tl-neutro">
+              <div class="tl-card">
+                <span class="tl-year">2026-27</span>
+                <span class="tl-title">¿El test definitivo?</span>
+                <p class="tl-desc">Súper Niño proyectado, senda de invierno cerrando en 82,6&nbsp;% al 30-nov y demanda récord por encima de 260&nbsp;GWh/día. El mecanismo llega a su prueba más exigente recién operado.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ---------------- Panel B ---------------- -->
+      <div class="panel" id="panel-b">
+        <h3><span class="panel-tag">Panel B</span> Arquitectura vigente — dos índices, cuatro estados</h3>
+
+        <p>Tras la Res. 101 112 de 2026, el Estatuto vigila el sistema con dos índices: uno físico (el nivel del embalse contra su senda de referencia) y uno de mercado (el precio de bolsa en las horas de punta contra el precio de escasez). El estado del sistema resulta de cruzarlos.</p>
+
+        <div class="indices-grid">
+          <div class="indice-card">
+            <h4>Índice <span class="mono">NE</span> — la señal física</h4>
+            <p>Compara el <strong>embalse útil real</strong> del SIN con la <strong>senda de referencia</strong> de la estación, en evaluación semanal.</p>
+            <ul>
+              <li><strong>Superior:</strong> embalse ≥ senda (desde jun-2026, ya <em>sin</em> el piso del 70&nbsp;%).</li>
+              <li><strong>Alerta:</strong> embalse entre la senda y senda&nbsp;−&nbsp;X. Dos verificaciones semanales seguidas en alerta ⇒ pasa a Inferior.</li>
+              <li><strong>Inferior:</strong> embalse por debajo de senda&nbsp;−&nbsp;X.</li>
+            </ul>
+          </div>
+          <div class="indice-card">
+            <h4>Índice <span class="mono">PBP</span> — la señal de precio</h4>
+            <p>Compara el <strong>precio de bolsa en punta</strong> (18-21&nbsp;h) con el <strong>precio de escasez de activación</strong> del Cargo por Confiabilidad, sobre los últimos 7 días.</p>
+            <ul>
+              <li><strong>Alto:</strong> el promedio del precio en punta supera el precio de escasez de activación en al menos 4 de los últimos 7 días.</li>
+              <li><strong>Bajo:</strong> en caso contrario.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="datos">
+            <caption>Estados del sistema según la combinación de índices (art. 3, Res. CREG 026/2014 mod.). Los seis cruces posibles se consolidan en cuatro filas.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Índice NE</th>
+                <th scope="col">Índice PBP</th>
+                <th scope="col">Estado del sistema</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Superior</td>
+                <td>Bajo o Alto</td>
+                <td><span class="chip chip-normal">Normal</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Alerta</td>
+                <td>Bajo o Alto</td>
+                <td><span class="chip chip-vigilancia">Vigilancia</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Inferior</td>
+                <td>Bajo</td>
+                <td><span class="chip chip-riesgo">Riesgo</span></td>
+                <td></td>
+              </tr>
+              <tr class="fila-na">
+                <td>Inferior</td>
+                <td>Alto</td>
+                <td><span class="chip chip-na">«No Aplica»</span></td>
+                <td><a class="nota-falla" href="#falla-4">ver falla 4 →</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.9rem;"><strong>Confirmación de Vigilancia.</strong> El paso a Vigilancia se confirma con la señal hidrológica: los aportes del SIN (HSIN) acumulados de 4 semanas por debajo del 90&nbsp;% de la media histórica.</p>
+
+        <p style="font-size:0.9rem;"><strong>Por qué el Riesgo exige precio <em>bajo</em>.</strong> Puede parecer contraintuitivo, pero es el corazón del diseño: si el embalse está mal <em>y</em> el precio ya está alto, el mercado está respondiendo solo — la escasez se está transmitiendo a las ofertas. El Estatuto existe para el caso contrario: embalse comprometido con precio que no reacciona. Es un mecanismo contra la falla de la señal de precio, no contra la escasez en sí.</p>
+
+        <div class="callout cambio">
+          <span class="callout-tag">Cambio reciente</span>
+          Hasta junio de 2026, un embalse por encima del 70&nbsp;% del volumen útil forzaba NE&nbsp;=&nbsp;Superior sin importar la senda (Resolución CREG 210 de 2021). La Res. 101 112 de 2026 eliminó ese piso: hoy el índice NE se define únicamente contra la senda de referencia. <a href="#panel-a">Ver hito jun-2026 en la línea de tiempo</a>.
+        </div>
+      </div>
+
+      <!-- ---------------- Panel C ---------------- -->
+      <div class="panel" id="panel-c">
+        <h3><span class="panel-tag">Panel C</span> Las fórmulas — la banda X y la senda de referencia</h3>
+
+        <p>La banda de alerta del índice NE no es un número fijo: se recalcula cada semana como el colchón térmico que la senda <em>no</em> comprometió, expresado en puntos de embalse.</p>
+
+        \[
+          Xpp_{s-1} \;=\; \max\!\left(0,\; \frac{DSM_s - GT_{SR,s}}{CEU_{SIN}} \times 100\right)
+        \]
+
+        <ul class="leyenda">
+          <li><span class="mono">DSM<sub>s</sub></span> — disponibilidad térmica de la semana <em>s</em>, descontando los mantenimientos programados del parque térmico.</li>
+          <li><span class="mono">GT<sub>SR,s</sub></span> — generación térmica supuesta en los análisis energéticos que definen la senda de referencia, para esa misma semana.</li>
+          <li><span class="mono">CEU<sub>SIN</sub></span> — capacidad de embalse útil del SIN.</li>
+        </ul>
+
+        <p><strong>La lectura conceptual:</strong> X mide cuánta térmica adicional puede despachar el sistema por encima de lo que la senda ya da por comprometido, traducida a puntos porcentuales de embalse. Si la senda ya exige toda la térmica disponible — como ocurre cuando el sistema planea con el parque térmico a fondo —, entonces \(X = 0\) y <strong>la banda de alerta desaparece</strong>: el índice pasa de Superior a Inferior sin estación intermedia.</p>
+
+        <h4>La senda de referencia</h4>
+
+        <p>La senda es el <strong>nivel diario del embalse útil agregado</strong> que se requiere para asegurar el suministro de energía en las estaciones siguientes. Se calcula por estación (invierno / verano) bajo los supuestos que fija el artículo 5:</p>
+
+        <ul style="font-size:0.92rem;">
+          <li><strong>Hidrología:</strong> el porcentaje de la media histórica de aportes que defina la CREG.</li>
+          <li><strong>Demanda:</strong> el escenario de proyección UPME que defina la CREG.</li>
+          <li><strong>Condición inicial:</strong> el nivel real del embalse al momento del cálculo.</li>
+          <li><strong>Horizonte:</strong> 18 meses.</li>
+          <li><strong>Modelo:</strong> el del análisis energético de mediano plazo del CND.</li>
+        </ul>
+      </div>
+
+      <!-- ---------------- Panel D ---------------- -->
+      <div class="panel" id="panel-d">
+        <h3><span class="panel-tag">Panel D</span> Flujo institucional — del cálculo semanal a la Circular</h3>
+
+        <p>Detectar el Riesgo es del CND; declararlo es de la CREG. Entre lo uno y lo otro media una confirmación cuyo criterio la norma no explicita.</p>
+
+        <p class="flow-titulo">Flujo principal — declaración del Riesgo</p>
+        <div class="wide">
+          <div class="flow">
+            <div class="flow-step">El <strong>CND</strong> calcula los índices NE y PBP<span class="paso-meta">semanal</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">Si detecta Riesgo, informa a la <strong>CREG</strong><span class="paso-meta">martes</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step destacado">La <strong>CREG confirma</strong> «con la información adicional que identifique como relevante»<span class="paso-meta">criterio no explícito — <a class="nota-falla" href="#falla-6">ver falla 6</a></span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>Circular</strong> del Director Ejecutivo declara el período de riesgo<span class="paso-meta">jueves</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">El período de riesgo <strong>inicia</strong><span class="paso-meta">lunes, semana s+1</span></div>
+          </div>
+        </div>
+
+        <p class="flow-titulo">Flujo secundario — construcción de la senda</p>
+        <div class="wide">
+          <div class="flow">
+            <div class="flow-step"><strong>CNO</strong> y <strong>CND</strong> proponen supuestos, por separado<span class="paso-meta">15 primeros días del mes anterior a la estación</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">La <strong>CREG</strong> define los supuestos<span class="paso-meta">hidrología + demanda</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">El <strong>CND</strong> calcula la senda<span class="paso-meta">modelo de mediano plazo</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step"><strong>Publicación</strong> de la senda<span class="paso-meta">hasta 2 días antes del inicio de la estación</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------------- Panel E ---------------- -->
+      <div class="panel" id="panel-e">
+        <h3><span class="panel-tag">Panel E</span> Qué se activa cuando se declara Riesgo</h3>
+
+        <p>Declarado el período de riesgo, el mercado deja de operar con sus reglas ordinarias. Cinco medidas entran simultáneamente:</p>
+
+        <div class="medidas-grid">
+          <div class="medida-card">
+            <h4><span class="mono">EVE</span> — Venta y embalse de energía</h4>
+            <p>El mecanismo central: la energía hidráulica se «vende» al sistema y se embalsa — el agua se queda guardada mientras la térmica cubre la demanda. <a href="#panel-e-bis">→ ver el flujo del dinero</a></p>
+          </div>
+          <div class="medida-card">
+            <h4>Meta de Generación Térmica Total</h4>
+            <p>Meta diaria de generación térmica para el sistema: el CND la propone y el Comité de Expertos de la CREG la aprueba.</p>
+          </div>
+          <div class="medida-card">
+            <h4>Precio de Oferta Ajustado</h4>
+            <p>El precio de oferta de las plantas hidráulicas se reemplaza por uno anclado al de la térmica más costosa: la hidráulica deja de competir hacia abajo.</p>
+          </div>
+          <div class="medida-card">
+            <h4>Cantidad Máxima a Embalsar</h4>
+            <p>Límite diario a la energía embalsada bajo el EVE, con reporte diario al Ministerio de Minas y Energía y a la CREG.</p>
+          </div>
+          <div class="medida-card">
+            <h4>Exportaciones restringidas</h4>
+            <p>Solo se permite exportar generación de seguridad producida con combustibles líquidos: el agua y el gas se quedan en el sistema.</p>
+          </div>
+        </div>
+
+        <p class="nota-pie">El costo del mecanismo — el ΔP<sub>EVE</sub> — se asigna a la demanda, con un tope de 5&nbsp;$/kWh mensual.</p>
+      </div>
+
+      <!-- ---------------- Panel E-bis ---------------- -->
+      <div class="panel" id="panel-e-bis">
+        <h3><span class="panel-tag">Panel E-bis</span> El dinero del EVE — cómo fluye</h3>
+
+        <p>El EVE no es un pago único: es un compromiso que nace un día, se entrega durante los siguientes y se termina de pagar meses después. Cuatro estaciones sobre el eje del tiempo:</p>
+
+        <div class="wide">
+          <div class="flow flow-tiempo">
+            <div class="flow-step">
+              <span class="paso-tiempo">Día t — venta</span>
+              <span class="paso-titulo">La energía se vende sin generarse</span>
+              La planta hidráulica deja de generar por la intervención; esa energía se entiende <strong>vendida al mercado</strong> al precio ofertado del día t, y el agua queda físicamente embalsada como garantía del compromiso.
+              <span class="flow-nota">La Res. 209/2020 (art. 7) eliminó el reconocimiento del <strong>costo financiero</strong> entre la venta y la entrega que contemplaba la 026/2014 original — un cambio silencioso en la remuneración del mecanismo.</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <span class="paso-tiempo">Días t+1 … t+q — entrega</span>
+              <span class="paso-titulo">El agua guardada se convierte en energía</span>
+              La energía comprometida se entrega cuando la planta efectivamente la genera, bajo las reglas del despacho con <strong>Precio de Oferta Ajustado</strong> mientras dura el período de riesgo.
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <span class="paso-tiempo">Liquidación — ASIC</span>
+              <span class="paso-titulo">Aparece el ΔP<sub>EVE</sub></span>
+              El ASIC liquida la entrega <strong>al valor del momento de entrega</strong>; la diferencia contra el precio del compromiso del día t es el ΔP<sub>EVE</sub>.
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <span class="paso-tiempo">Meses siguientes — asignación</span>
+              <span class="paso-titulo">La demanda paga en cuotas</span>
+              Si ΔP<sub>EVE</sub>&nbsp;&gt;&nbsp;0, se cobra a la demanda con tope de <strong>5&nbsp;$/kWh</strong> de costo unitario por mes, arrastrando el excedente a los meses siguientes hasta completar el valor. Si ΔP<sub>EVE</sub>&nbsp;&lt;&nbsp;0, el saldo alivia el costo de las restricciones.
+            </div>
+          </div>
+        </div>
+
+        <p>La consecuencia del tope mensual es un calendario de pagos que se extiende más allá del evento: <strong>la demanda termina de pagar el embalsamiento mucho después de que pasó la emergencia</strong>. El mecanismo protege la liquidez del cobro, pero desconecta en el tiempo la causa (la intervención) de su costo (la factura).</p>
+      </div>
+
+      <!-- ---------------- Panel F ---------------- -->
+      <div class="panel" id="panel-f">
+        <h3><span class="panel-tag">Panel F</span> Evolución normativa comparada — tres generaciones del mecanismo</h3>
+
+        <p>Cada columna es una generación del Estatuto; cada reforma respondió a la falla que la generación anterior dejó a la vista.</p>
+
+        <div class="table-scroll">
+          <table class="datos">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">026/2014 (original)</th>
+                <th scope="col">209/2020 (+210/2021)</th>
+                <th scope="col">101 112/2026 (vigente)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Índices</th>
+                <td>ED + PBP + AE</td>
+                <td>NE + PBP</td>
+                <td>NE + PBP</td>
+              </tr>
+              <tr>
+                <th scope="row">Referencia del NE</th>
+                <td>—</td>
+                <td>Senda, con piso del 70&nbsp;% desde 2021</td>
+                <td>Solo la senda</td>
+              </tr>
+              <tr>
+                <th scope="row">Referencia del PBP</th>
+                <td>Térmica más costosa (5 de 7 días)</td>
+                <td>Precio de escasez (4 de 7 días)</td>
+                <td>Igual</td>
+              </tr>
+              <tr>
+                <th scope="row">Evaluación</th>
+                <td>Mensual, horizonte 12 meses</td>
+                <td>Semanal</td>
+                <td>Semanal (+diaria cerca de la senda, 101 059/2024)</td>
+              </tr>
+              <tr>
+                <th scope="row">Finalización del Riesgo</th>
+                <td>Hacia Normal o Vigilancia</td>
+                <td>Solo hacia Normal</td>
+                <td>Solo hacia Normal (+condiciones de tasa, ajuste 2024)</td>
+              </tr>
+              <tr>
+                <th scope="row">Motivación del cambio</th>
+                <td>—</td>
+                <td>2020: los índices no daban señales oportunas (falso negativo)</td>
+                <td>2026: el piso del 70&nbsp;% inhibía la activación (falso negativo inverso)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ---------------- Banda de cifras ---------------- -->
+      <div class="panel" id="contexto-2026">
+        <h3>El contexto 2026 en cuatro cifras</h3>
+
+        <p>El sistema al que hoy vigila el Estatuto no es el de 2021: tiene menos embalse, más demanda y menos autonomía. Este es el telón de fondo cuantitativo sobre el que la Parte 2 discute las fallas.</p>
+
+        <div class="metric-band wide">
+          <div class="metric-grid">
+            <div class="metric">
+              <span class="metric-num">18.237 → <span class="peor">16.908,5</span> GWh</span>
+              <span class="metric-label">Capacidad útil de embalse del SIN, jun-2023 → abr-2026, por restricciones en Guavio, Ituango y Chivor.</span>
+              <span class="metric-delta">−7,3&nbsp;% desde jun-2023</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">207,5 → <span class="peor">240,6</span> GWh/día</span>
+              <span class="metric-label">Demanda media diaria, 2021 → 2026, con registros por encima de 260&nbsp;GWh/día en 2026.</span>
+              <span class="metric-delta">+16&nbsp;% en cinco años</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">81,2 → <span class="peor">70,3</span> días</span>
+              <span class="metric-label">Cociente capacidad útil / demanda: la autonomía del embalse lleno, dic-2021 → abr-2026.</span>
+              <span class="metric-delta">−13,4&nbsp;%</span>
+            </div>
+            <div class="metric">
+              <span class="metric-num">82,6&nbsp;%</span>
+              <span class="metric-label">Cierre de la senda de invierno 2026 al 30-nov. La senda supera el 70&nbsp;% desde el 3 de junio — por eso la condición del 70&nbsp;% introducida en 2021 se volvió insostenible.</span>
+              <span class="metric-delta">&gt;70&nbsp;% desde el 3-jun</span>
+            </div>
+          </div>
+          <p class="metric-fuente">Fuente: CREG, Documento 901 373 de 2026 — Datos XM.</p>
+        </div>
+
+        <figure>
+          <img src="assets_esrd/fig1_reservas_senda_nov2026.png" alt="Serie diaria de las reservas hídricas del SIN desde diciembre de 2025 hasta julio de 2026 en línea negra continua, comparada contra la senda de referencia de verano 2025-26 y la senda de invierno 2026 en líneas rojas punteadas. La senda de invierno se extiende hasta su cierre en 82,6 por ciento el 30 de noviembre de 2026. Una zona gris clara marca el tramo entre la última fecha con datos reales y el 30 de noviembre. Una línea horizontal punteada en 70 por ciento señala el condicionante vigente entre 2021 y 2026.">
+          <figcaption>Reservas hídricas del SIN contra la senda de referencia, con el eje extendido hasta el 30-nov-2026. Tres lecturas en una figura: (i) la trayectoria real cierra julio en torno al 80&nbsp;%, pegada a la senda de invierno; (ii) la meta del 30-nov es 82,6&nbsp;% — cumplirla no exige un esfuerzo puntual sino sostener el embalsamiento durante toda la estación (la zona sombreada es el tramo que falta); y (iii) el condicionante del 70&nbsp;% quedó por debajo de la senda durante casi toda la estación de invierno: con la regla de la Resolución CREG 210 de 2021 el índice NE habría marcado Superior aun con el embalse por debajo de su referencia — la razón visual de la Res. 101 112 de 2026.</figcaption>
+        </figure>
+
+        <p>La figura anterior deja una lectura incómoda: lo más difícil no está atrás, sino adelante. Según el <a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml">diagnóstico más reciente del Climate Prediction Center de la NOAA (julio de 2026)</a>, El Niño continuará intensificándose durante el resto del año, con una probabilidad del 63&nbsp;% de alcanzar la categoría de evento muy fuerte en el trimestre noviembre–enero —lo que lo ubicaría entre los mayores registrados desde 1950— y un 97&nbsp;% de persistir hasta comienzos de la primavera boreal de 2027. El tramo sombreado de la figura, en el que el sistema debe sostener las reservas por encima de la senda y completar el ascenso hasta la meta del 82,6&nbsp;%, coincide así con la fase de intensificación del fenómeno y con la caída esperada de los aportes hídricos.</p>
+
+        <p>Como lo mostramos en <a href="el-nino-2026-2027-bayes-parp.html#resultados">el balance energético del primer artículo de esta serie</a>, cumplir esa trayectoria bajo aportes deficitarios exige una generación térmica sostenida y cercana al máximo del parque disponible: la térmica deja de ser un recurso de respaldo y se convierte en la variable de cierre del balance. Si el parque no entrega esa generación —o si la entrega, pero los precios de bolsa no reflejan la escasez y el índice PBP permanece en nivel Bajo mientras el embalse cae por debajo de la senda—, el sistema quedaría exactamente en la combinación que declara la condición de Riesgo y activa el Estatuto. Las fallas que analizamos en la Parte 2 dejarían, en ese escenario, de ser una discusión regulatoria para convertirse en operación diaria.</p>
+      </div>
+
+    </section>
+
+    <!-- ================================================================ -->
+    <!-- PARTE 2 — ANÁLISIS DE FALLAS                                     -->
+    <!-- ================================================================ -->
+
+    <section id="parte-2" aria-labelledby="parte-2-h2">
+      <h2 id="parte-2-h2">Parte 2 — Análisis de fallas</h2>
+
+      <p>Las diez fallas que siguen no tienen el mismo estatus epistémico, y conviene decirlo de entrada. Las de la <strong>Familia 1</strong> son afirmaciones empíricas sobre lo que ocurrió durante el período de riesgo de 2024: se sostienen o se caen con datos, y el cierre cuantitativo de cada una se hará con la información pública de XM. Las de la <strong>Familia 2</strong> son fallas de diseño que cualquier lector puede verificar leyendo la norma. La <strong>Familia 3</strong> es una tesis: una explicación de por qué las otras nueve existen.</p>
+    </section>
+
+    <section id="familia-1" aria-labelledby="familia-1-h2">
+      <h2 id="familia-1-h2">Familia 1 — Fallas de ejecución (lo que 2024 demostró)</h2>
+
+      <p>El Estatuto operó por primera vez entre el 28 de septiembre y el 22 de noviembre de 2024. Esos 56 días son el único registro empírico de cómo funciona el mecanismo bajo condiciones reales, y las tres fallas de esta familia salen de contrastar lo que la norma ordena con lo que la operación muestra. Las dos primeras esperan su cierre cuantitativo con datos públicos de XM; la tercera se sostiene ya desde el articulado, y los datos solo le pondrán magnitud.</p>
+
+      <h3 id="falla-1">Falla 1 — La brecha entre el predespacho ideal y la operación real</h3>
+      <p>La Meta de Generación Térmica Total se exige sobre el plano del despacho programado, pero las plantas viven en la operación real: redespachos, restricciones de red, indisponibilidades sobrevinientes. La tesis: durante sep-nov de 2024 la meta se midió en un plano donde el sistema no opera, y esa brecha convirtió parte del cumplimiento en un ejercicio contable más que en energía efectivamente generada.</p>
+
+      <p>Un ejemplo concreto de las restricciones que separan el predespacho ideal —donde el Estatuto interviene las ofertas y fija la meta térmica— del despacho programado —que incorpora las restricciones operativas reales del sistema— son las obligaciones ambientales y piscícolas, conocidas en el sector como restricciones fitosanitarias, que pesan sobre varias plantas hidráulicas con embalse: Urrá, El Quimbo o Betania, entre otras. Estas condiciones, impuestas en las licencias ambientales, obligan a turbinar caudales con independencia de la señal de escasez, de modo que parte del agua que el mecanismo pretende embalsar sale del sistema por mandato de una regulación distinta, y la recuperación de las reservas hacia la senda avanza más lento de lo que el despacho ideal supone.</p>
+
+      <p>La pregunta abierta —incómoda, pero inevitable en la antesala de un evento extremo— es si estas restricciones deberían contar con protocolos de flexibilización temporal durante sequías severas, evaluados y autorizados por las autoridades competentes, la ANLA en primer lugar, de modo que la protección de los ecosistemas y la confiabilidad del sistema eléctrico no terminen tratándose como objetivos irreconciliables.</p>
+
+      <h3 id="falla-2">Falla 2 — La paradoja de los vertimientos</h3>
+      <p>Durante el período de riesgo, la orden general fue embalsar; en paralelo, hubo embalses vertiendo agua. Guardar energía en una planta que está descartando agua no agrega un solo kilovatio-hora a la seguridad futura del sistema. La tesis: la Cantidad Máxima a Embalsar se administra sobre el agregado sin reconocer el estado hidráulico individual de cada embalse.</p>
+
+      <p>La paradoja tiene, en parte, la misma raíz que la falla anterior: reglas ambientales diseñadas para condiciones normales que operan sin válvula de ajuste en condiciones extremas. Durante la activación de 2024, el caso más comentado fue el de plantas con embalse que debieron mantener vertimientos —agua que pasa por fuera de las turbinas— por condiciones de sus licencias ambientales en plena sequía. Verter en sequía es la negación misma del objetivo del Estatuto: por una vía, el mecanismo le paga a las plantas por embalsar; por la otra, una regulación distinta ordena soltar el agua.</p>
+
+      <p>Nada de esto implica desmontar la protección ambiental. Implica reconocer que la rigidez regulatoria también tiene costos de confiabilidad, y que un protocolo de flexibilización en condiciones de sequía —con salvaguardas, monitoreo estricto y control de las autoridades ambientales— es una discusión que el sector no puede seguir aplazando.</p>
+
+      <h3 id="falla-3">Falla 3 — La asimetría EVE-OEF</h3>
+
+      <p>Las dos fallas anteriores necesitan datos para cerrarse. Esta tercera se puede argumentar completa desde la norma pública, y es quizás la más seria de la familia: el EVE no solo interviene el precio — redistribuye el riesgo regulatorio del Cargo por Confiabilidad entre agentes, y lo hace de forma asimétrica. El argumento tiene tres eslabones.</p>
+
+      <p><strong>Primer eslabón: la EVE cuenta como energía firme.</strong> El artículo 8.d de la Res. 026/2014 establece que la energía vendida y embalsada se considera generación para el cumplimiento de las obligaciones de energía firme (OEF) de la planta que embalsa; el excedente puede incluso cubrir contratos del mercado secundario. La regla operativa está en la obligación diaria restante:</p>
+
+      \[
+        ODEFR_{i,j,d,m} \;=\; OMEFR_{i,j,m} \times \frac{DC_{d,m} + DDVV_{d,m}}{DC_m + DDVV_m} \;-\; EVEA_{i,j,d,m}
+      \]
+
+      <ul class="leyenda">
+        <li><span class="mono">ODEFR<sub>i,j,d,m</sub></span> — obligación diaria de energía firme restante de la planta <em>i</em> del agente <em>j</em>, día <em>d</em> del mes <em>m</em>.</li>
+        <li><span class="mono">OMEFR<sub>i,j,m</sub></span> — obligación mensual de energía firme restante de la planta.</li>
+        <li><span class="mono">DC</span>, <span class="mono">DDVV</span> — demanda comercial y demanda desconectable voluntaria verificada, del día <em>d</em> y del mes <em>m</em>.</li>
+        <li><span class="mono">EVEA<sub>i,j,d,m</sub></span> — energía vendida y embalsada ajustada de la planta.</li>
+      </ul>
+
+      <p>La lectura de la fórmula es directa: la obligación diaria de la planta embalsadora <strong>se reduce en la EVE ajustada</strong> — su energía firme se acredita sin generar. El agua guardada vale, para efectos del Cargo por Confiabilidad, como si se hubiera turbinado.</p>
+
+      <p><strong>Segundo eslabón: la demanda a cubrir no se ajusta.</strong> La obligación que la planta embalsadora deja de atender no desaparece del sistema — la demanda comercial sigue siendo la misma. La exigencia desplazada se redistribuye sobre el resto del parque generador, elevando el requerimiento efectivo sobre plantas que no participan del mecanismo y que no eligieron ese desplazamiento.</p>
+
+      <p><strong>Tercer eslabón: la asimetría con las plantas desplazadas.</strong> Considérese una planta que en el predespacho ideal resultaba despachada, pero que la intervención saca del orden de mérito — el efecto combinado del Precio de Oferta Ajustado y de la meta de generación térmica. Esa planta genera por debajo de su obligación diaria de energía firme <strong>por decisión regulatoria, no propia</strong> — y queda expuesta a desviaciones negativas bajo las reglas de verificación del Cargo por Confiabilidad (Res. CREG 071 de 2006 y complementarias). El resultado neto: la planta con EVE queda protegida (su OEF se acredita sin generar); la planta desplazada sin EVE queda penalizada (su OEF se incumple sin que ella lo decidiera). El mecanismo redistribuye riesgo regulatorio entre agentes de forma no simétrica, y el costo neto viaja a la demanda por dos vías — el ΔP<sub>EVE</sub> y las desviaciones.</p>
+
+    </section>
+
+    <section id="familia-2" aria-labelledby="familia-2-h2">
+      <h2 id="familia-2-h2">Familia 2 — Fallas de diseño normativo (se leen en la norma misma)</h2>
+
+      <p>Estas seis fallas no requieren datos: están escritas en el articulado. Algunas son vacíos — casos que la norma no resuelve —, otras son decisiones de diseño cuyas consecuencias quedaron a la vista con la reforma exprés de junio de 2026.</p>
+
+      <h3 id="falla-4">Falla 4 — El caso «No Aplica»: la peor combinación no tiene estado</h3>
+      <p>La tabla de estados no define qué ocurre cuando el índice NE está en Inferior y el PBP en Alto — es decir, cuando el embalse está en su peor condición <em>y</em> el precio ya se disparó. La lógica del artículo 6 sugiere que el mecanismo no debe intervenir porque el mercado está respondiendo; la del artículo 3, que el sistema está en su condición física más grave. La tesis: la combinación más peligrosa del espacio de estados quedó formalmente indefinida.</p>
+
+      <h3 id="falla-5">Falla 5 — Transiciones de estado indefinidas</h3>
+      <p>El Estatuto define con precisión la escalada — Normal, Vigilancia, Riesgo — pero la desescalada está truncada: desde 2020 el período de riesgo solo puede finalizar hacia Normal, y el tránsito Riesgo&nbsp;→&nbsp;Vigilancia&nbsp;→&nbsp;Normal carece de reglas propias. La tesis: la máquina de estados está completa para entrar y amputada para salir, lo que en 2024 obligó a ajustar las condiciones de finalización sobre la marcha.</p>
+
+      <h3 id="falla-6">Falla 6 — Discrecionalidad sin criterios explícitos</h3>
+      <p>La CREG confirma el estado de Riesgo «con la información adicional que identifique como relevante», sin criterios publicados; y los dos supuestos que determinan la senda — el porcentaje de hidrología y el escenario de demanda — son definiciones discrecionales de la Comisión. La tesis: la propia Res. 101 112 de 2026 ilustra el punto en el plano procedimental — consulta pública de 3 días hábiles y sin concepto de la SIC por urgencia, para modificar la regla central del mecanismo.</p>
+
+      <h3 id="falla-7">Falla 7 — La senda estática y el vacío entre estaciones</h3>
+      <p>La senda se calcula una vez por estación, con condición inicial congelada al momento del cálculo, y se publica hasta 2 días antes del inicio. La consecuencia: la senda del verano 2026-27 — el período que concentra todo el riesgo del Súper Niño — solo existirá en noviembre de 2026. La tesis: el instrumento de referencia del índice NE es estático dentro de la estación e inexistente entre estaciones, exactamente cuando la anticipación más importa.</p>
+
+      <h3 id="falla-8">Falla 8 — El desacople de combustibles</h3>
+      <p>Las obligaciones de suministro de gas para generación (OCG) se activan por una señal de precio — el 95&nbsp;% del precio de escasez —, no por el estado del sistema que declara el Estatuto. La tesis: los mecanismos de emergencia del eléctrico y del gas operan con disparadores distintos y no coordinados, y pueden apuntar en direcciones opuestas justo cuando el sistema necesita que la térmica a gas responda a la declaratoria de Riesgo.</p>
+
+      <h3 id="falla-9">Falla 9 — El péndulo regulatorio del índice NE</h3>
+      <p>En seis años el índice NE pasó por un falso positivo (2020), un condicionante del 70&nbsp;% que lo silenció (2021), la constatación de que esa restricción de activación inhibía el mecanismo (2026) y una eliminación exprés que adoptó la regla senda-only — la misma redacción de la <strong>Alternativa 2</strong> que el propio Documento CREG 901 373 descartó por riesgo de efecto borde, mientras la condición variable de verano de la <strong>Alternativa 4</strong>, la recomendada, no quedó en el articulado de la 101 112. La tesis, formulada con cautela porque la Comisión puede expedir una resolución complementaria antes de diciembre: el articulado vigente reintrodujo el riesgo que la reforma de 2021 quiso conjurar.</p>
+
+    </section>
+
+    <section id="familia-3" aria-labelledby="familia-3-h2">
+      <h2 id="familia-3-h2">Familia 3 — La falla conceptual (la tesis del estudio)</h2>
+
+      <h3 id="falla-10">Falla 10 — Puntos contra puntos</h3>
+      <p>Todos los índices del Estatuto comparan un valor observado contra un umbral determinístico: el embalse contra la senda, el precio contra el 4 de 7, la banda X, el piso del 70&nbsp;% ayer, el 95&nbsp;% del precio de escasez en el gas. Pero cada insumo de esas comparaciones — hidrología, demanda, disponibilidad térmica — es una variable aleatoria. La tesis: el péndulo de la falla 9 es el síntoma; el diseño determinístico es la enfermedad. Un mecanismo que compara puntos contra puntos está condenado a reescribir sus umbrales cada vez que la distribución subyacente se mueve — y el balance del primer artículo de esta serie ya mostró el caso concreto: cumplir la meta del 30-nov exige que la térmica entregue al menos el 80&nbsp;% de su disponibilidad observada, un enunciado que es una probabilidad, no un umbral.</p>
+
+    </section>
+
+    <section id="veredicto" aria-labelledby="veredicto-h2">
+      <h2 id="veredicto-h2">Veredicto — ¿reforma quirúrgica o borrón y cuenta nueva?</h2>
+
+      <p>Si el diagnóstico de las tres familias es correcto, hay dos rutas posibles y no son equivalentes.</p>
+
+      <h3>Ruta 1 — Reforma quirúrgica</h3>
+      <p>Conservar la arquitectura NE&nbsp;+&nbsp;PBP y cerrar las fallas una a una: definir el caso «No Aplica», escribir las reglas de desescalada, publicar los criterios de confirmación y de supuestos de la senda, hacer la senda continua entre estaciones y acoplar los disparadores del gas. Es la ruta compatible con la revisión integral del Estatuto que la CREG anunció en su agenda regulatoria.</p>
+
+      <h3>Ruta 2 — Borrón y cuenta nueva</h3>
+      <p>Aceptar que el problema no son los umbrales sino la lógica de umbral: rediseñar el mecanismo sobre una base probabilística, donde la señal de activación sea una probabilidad de déficit estimada sobre las distribuciones de hidrología, demanda y disponibilidad — no la comparación de un punto observado contra un punto de referencia que hay que reescribir cada vez que el sistema cambia.</p>
+
+      <p>Cada una de las diez fallas descritas admite un desarrollo mucho más profundo del que cabe en este artículo: la cuantificación de la brecha de ejecución de 2024 con datos de operación, la simulación de trayectorias de activación bajo los escenarios del balance energético del primer artículo, o el rediseño probabilístico de los índices de seguimiento. Ese trabajo existe y avanza. Si su organización necesita profundidad en alguno de estos frentes —como agente del mercado, autoridad o inversionista—, puede contactarme a través de <a href="https://gonzalezsierra.co">los canales de este sitio</a>.</p>
+
+    </section>
+
+  </main>
+
+  <footer class="estudio-footer">
+    <div class="inner">
+      <h3>Referencias y citas</h3>
+      <ul class="citas">
+        <li>CREG — Resoluciones 026 y 155 de 2014 (Estatuto para Situaciones de Riesgo de Desabastecimiento).</li>
+        <li>CREG — Resolución 209 de 2020 y Resolución 210 de 2021 (reforma de índices; condicionante del 70&nbsp;%).</li>
+        <li>CREG — Resoluciones 101 055, 101 059 y 101 063 de 2024; Circular 072 de 2024 (primera activación y ajustes).</li>
+        <li>CREG — Proyecto de Resolución 701 130 de 2026 y Resolución 101 112 de 2026 (eliminación del condicionante del 70&nbsp;%; incluye transcripción de la recomendación del CND del 15 de abril de 2026).</li>
+        <li>CREG — Documento 901 373 de 2026 (soporte de la consulta; contexto de capacidad útil y demanda con datos XM).</li>
+        <li>XM S.A. E.S.P. — información pública de la operación del SIN (senda de referencia, hidrología, generación).</li>
+      </ul>
+      <p>Publicado en <a href="https://gonzalezsierra.co">gonzalezsierra.co</a> · Reutilización con cita.</p>
+      <p style="margin-top:12px;"><a href="https://gonzalezsierra.co" class="back-home">← Volver a todos los estudios</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
