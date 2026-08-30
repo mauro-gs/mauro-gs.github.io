@@ -1,0 +1,319 @@
+<!doctype html>
+<!-- La demanda que nadie está mirando — agosto de 2026 -->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La demanda que nadie está mirando — gonzalezsierra.co</title>
+  <meta name="author" content="Mauro González Sierra">
+  <meta name="description" content="Un récord histórico en pleno agosto, un factor de carga que subió dieciséis puntos en 25 años y una proyección oficial donde la palabra “datacenter” no aparece. Anatomía de la demanda del SIN a las puertas de El Niño del verano 2026-27.">
+
+  <!-- Open Graph para preview en LinkedIn / Twitter -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="La demanda que nadie está mirando">
+  <meta property="og:description" content="Un récord histórico en pleno agosto, un factor de carga que subió dieciséis puntos en 25 años y una proyección oficial donde la palabra “datacenter” no aparece. Anatomía de la demanda del SIN a las puertas de El Niño del verano 2026-27.">
+  <meta property="og:url" content="https://gonzalezsierra.co/estudios/demanda-que-nadie-esta-mirando.html">
+  <meta property="og:image" content="https://gonzalezsierra.co/estudios/assets_demanda/F1_serie_mensual_quiebres.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <style>
+    /* ===== Base del sitio ===== */
+    :root {
+      --azul-principal: #0e4d6e;
+      --rojo: #dc2626;
+      --azul-nina: #2563eb;
+      --naranja: #d47700;
+      --fondo: #fafaf8;
+      --texto: #111111;
+      --texto-sec: #4b5563;
+      --gris: #9ca3af;
+      --gris-claro: #e5e7eb;
+      --max-w: 760px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; padding: 0;
+      background: var(--fondo); color: var(--texto);
+      font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      font-size: 18px; line-height: 1.65;
+      font-feature-settings: "kern", "liga", "calt";
+    }
+    header.estudio-header { border-bottom: 1px solid var(--gris-claro); padding: 3.5rem 1.25rem 2rem 1.25rem; background: var(--fondo); }
+    header.estudio-header > .inner, main, footer.estudio-footer > .inner { max-width: var(--max-w); margin: 0 auto; }
+    h1.titulo-estudio { font-size: 2.0rem; line-height: 1.2; margin: 0 0 0.6rem 0; color: var(--azul-principal); font-weight: 700; }
+    p.lead { font-size: 1.15rem; color: var(--texto-sec); margin: 0 0 1.5rem 0; font-style: italic; }
+    .meta-estudio { font-size: 0.9rem; color: var(--texto-sec); display: flex; flex-wrap: wrap; gap: 0.9rem 1.4rem; margin: 0 0 1rem 0; }
+    .meta-estudio b { color: var(--texto); font-weight: 600; }
+    .back-home { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--naranja); text-decoration: none; margin-bottom: 20px; opacity: 0.85; letter-spacing: 0.01em; transition: opacity 0.2s; }
+    .back-home:hover { opacity: 1; text-decoration: underline; }
+    nav.toc { border: 1px solid var(--gris-claro); padding: 1rem 1.25rem; margin: 2rem 0 0 0; background: #ffffff; border-radius: 6px; }
+    nav.toc h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--texto-sec); margin: 0 0 0.6rem 0; }
+    nav.toc ol { list-style-position: inside; padding-left: 0; margin: 0; font-size: 0.95rem; }
+    nav.toc li { margin: 0.18rem 0; }
+    nav.toc a { color: var(--azul-principal); text-decoration: none; border-bottom: 1px dotted var(--gris); }
+    nav.toc a:hover { color: var(--rojo); border-bottom-color: currentColor; }
+    main { padding: 0 1.25rem 4rem 1.25rem; }
+    section { margin: 3rem 0 0 0; scroll-margin-top: 2rem; }
+    section h2 { font-size: 1.5rem; color: var(--azul-principal); border-bottom: 2px solid var(--azul-principal); padding-bottom: 0.3rem; margin: 0 0 1.2rem 0; font-weight: 700; }
+    section h3 { font-size: 1.15rem; color: var(--texto); margin: 1.6rem 0 0.6rem 0; font-weight: 600; scroll-margin-top: 2rem; }
+    p { margin: 0 0 1rem 0; }
+    strong { color: var(--texto); font-weight: 600; }
+    em { color: var(--texto-sec); }
+    a { color: var(--azul-principal); }
+    a:hover { color: var(--rojo); }
+    figure { margin: 2rem -1rem; padding: 0; }
+    figure img { width: 100%; height: auto; border-radius: 4px; }
+    figcaption { font-size: 0.88rem; color: var(--texto-sec); margin: 0.6rem 0.5rem 0 0.5rem; text-align: center; font-style: italic; }
+    code, .mono { font-family: 'JetBrains Mono', 'Menlo', 'Consolas', monospace; font-size: 0.92em; background: #f0eee9; padding: 0.05rem 0.35rem; border-radius: 3px; }
+    .callout { border-left: 4px solid var(--naranja); background: #fff5e6; padding: 0.85rem 1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+    .callout.cambio { border-left-color: var(--azul-principal); background: #eaf1f6; }
+    .callout .callout-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--texto-sec); margin-bottom: 0.3rem; }
+    .callout p { margin: 0 0 0.7rem 0; }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout mjx-container[display="true"] { margin: 0.6rem 0 !important; }
+    ol.notas { padding-left: 1.3rem; font-size: 0.95rem; color: var(--texto-sec); }
+    ol.notas li { margin: 0.5rem 0; }
+    ol.notas strong { color: var(--texto); }
+    .vigilar p { margin-bottom: 1.1rem; }
+    footer.estudio-footer { border-top: 1px solid var(--gris-claro); padding: 2.5rem 1.25rem 4rem 1.25rem; font-size: 0.9rem; color: var(--texto-sec); }
+    footer.estudio-footer h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.7rem 0; }
+    footer.estudio-footer .citas li { margin: 0.25rem 0; }
+    @media (max-width: 700px) {
+      body { font-size: 16px; }
+      h1.titulo-estudio { font-size: 1.55rem; }
+      section h2 { font-size: 1.25rem; }
+      header.estudio-header { padding-top: 2rem; }
+    }
+  </style>
+
+  <!-- MathJax 3 — render de LaTeX inline \( ... \) y display \[ ... \] -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], processEscapes: true },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+  <header class="estudio-header">
+    <div class="inner">
+      <a href="https://gonzalezsierra.co" class="back-home" aria-label="Volver a gonzalezsierra.co">← gonzalezsierra.co</a>
+      <h1 class="titulo-estudio">La demanda que nadie está mirando</h1>
+
+      <p class="lead">Un récord histórico en pleno agosto, un factor de carga que subió dieciséis puntos en 25 años y una proyección oficial donde la palabra “datacenter” no aparece. Anatomía de la demanda del SIN a las puertas de El Niño del verano 2026-27.</p>
+
+      <div class="meta-estudio">
+        <span><b>Autor:</b> Mauro González Sierra</span>
+        <span><b>Serie:</b> tercer artículo — sigue a <a href="https://gonzalezsierra.co/estudios/el-nino-2026-2027-bayes-parp.html">¿Tendremos estrés energético durante el Súper Niño 2026-27?</a> y <a href="https://gonzalezsierra.co/estudios/estatuto-riesgo-desabastecimiento.html">El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla</a></span>
+        <span><b>Publicado en:</b> <a href="https://gonzalezsierra.co">gonzalezsierra.co</a></span>
+        <span><b>Fecha:</b> 30 de agosto de 2026</span>
+      </div>
+
+      <nav class="toc" aria-label="Tabla de contenidos">
+        <h2>Contenido</h2>
+        <ol>
+          <li><a href="#s1">El récord que llegó fuera de temporada</a></li>
+          <li><a href="#s2">Veinticinco años de demanda: crece más rápido y se aplana</a></li>
+          <li><a href="#s3">Las cargas que vienen (y la que no aparece)</a></li>
+          <li><a href="#s4">El Niño: presión adicional en el peor momento posible</a></li>
+          <li><a href="#s5">Pronosticar la forma, no solo el nivel — y elegir bien el escenario</a></li>
+          <li><a href="#s6">La brecha institucional empieza en el pronóstico</a></li>
+          <li><a href="#s7">Qué vigilar</a></li>
+          <li style="list-style:none; margin-top:0.4rem;"><a href="#notas">Notas metodológicas</a></li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="s1" aria-labelledby="s1-h2">
+      <h2 id="s1-h2">1. El récord que llegó fuera de temporada</h2>
+
+      <p>El 20 de agosto de 2026, a la hora 20, el Sistema Interconectado Nacional alcanzó <strong>12.576&nbsp;MW</strong>: el máximo horario de su historia. La cifra supera en 2,9&nbsp;% el récord anterior — 12.220&nbsp;MW, del 11 de diciembre de 2025 — y trae un detalle que importa más que su magnitud: llegó en agosto. Desde 2013, el pico anual del SIN se había acomodado siempre entre septiembre y diciembre; durante la década anterior, casi invariablemente en diciembre. Un máximo histórico en pleno agosto no es solo un número más alto — es la curva de demanda comportándose distinto.</p>
+
+      <p>No es un dato aislado. En lo corrido de 2026, la demanda de energía crece 5,6&nbsp;% frente al mismo tramo de 2025, y los últimos doce meses completos acumulan 4,1&nbsp;%. Para dimensionarlo: la proyección oficial más reciente de la UPME, publicada apenas semanas antes del récord, estima para todo 2026 una demanda máxima de potencia de 12.142&nbsp;MW en su variante base — la que excluye las cargas nuevas. Esa cifra ya había sido superada en diciembre de 2025, antes de que el documento circulara, y agosto la dejó 434&nbsp;MW atrás.</p>
+
+      <p>Los dos primeros artículos de esta serie miraron la oferta: <a href="https://gonzalezsierra.co/estudios/el-nino-2026-2027-bayes-parp.html">la hidrología del Súper Niño 2026-27</a> y <a href="https://gonzalezsierra.co/estudios/estatuto-riesgo-desabastecimiento.html">el mecanismo de última instancia que se activaría si el verano se complica</a>. Este tercero mira el otro lado del balance — el lado que crece más rápido de lo que solemos discutir, que está cambiando de forma, y que a las puertas de El Niño recibe mucha menos atención institucional de la que merece. Empecemos por los datos.</p>
+    </section>
+
+    <section id="s2" aria-labelledby="s2-h2">
+      <h2 id="s2-h2">2. Veinticinco años de demanda: crece más rápido y se aplana</h2>
+
+      <figure>
+        <img src="assets_demanda/F1_serie_mensual_quiebres.png" alt="Serie mensual de la demanda del SIN entre 2000 y 2026 en GWh por día equivalente, con la serie desestacionalizada en azul y una tendencia lineal a trozos en naranja punteada. Tres líneas verticales grises marcan los quiebres de marzo de 2008, mayo de 2016 y marzo de 2020, este último coincidente con la pandemia; sobre cada segmento se anota su crecimiento anualizado: 3,85, 2,92, 3,42 y 3,93 por ciento. Bandas rojas y azules de fondo señalan los episodios de El Niño y La Niña, y un marcador naranja al final de la serie señala el récord de potencia de 12.576 MW del 20 de agosto de 2026.">
+        <figcaption>Figura 1. Demanda mensual del SIN por día equivalente, 2000–2026, con tendencia lineal a trozos, quiebres estructurales y fases ENSO.</figcaption>
+      </figure>
+
+      <p>Los registros históricos del mercado permiten reconstruir la demanda horaria del SIN desde el año 2000. La historia en tasas compuestas: 3,42&nbsp;% anual entre 2000 y 2009, 2,63&nbsp;% entre 2010 y 2019, y 3,68&nbsp;% entre 2020 y 2025. Un análisis formal de quiebres estructurales sobre la serie mensual desestacionalizada — tendencia lineal a trozos, con el número de quiebres elegido por criterio de información — identifica tres: marzo de 2008, mediados de 2016 y marzo de 2020. Ninguno en 2024, y conviene decirlo de frente: la aceleración reciente no es un quiebre detectable estadísticamente. Lo que sí es: el segmento que arranca en 2020 tiene la pendiente más alta del siglo, 3,93&nbsp;% anual — con la salvedad honesta de que parte desde el mínimo de la pandemia, así que una fracción de esa pendiente es recuperación. Medida desde 2023, la tasa compuesta es un más modesto 2,8&nbsp;%; medida en los últimos doce meses, 4,1&nbsp;%. Se mire como se mire, la demanda colombiana de esta década crece más rápido que la de la anterior.</p>
+
+      <p>Pero el nivel es solo la mitad de la historia. La otra mitad es la forma — y para hablar de forma hay que hablar del factor de carga.</p>
+
+      <div class="callout">
+        <span class="callout-tag">Concepto</span>
+        <p><strong>¿Qué es el factor de carga?</strong></p>
+        \[
+          FC_{anual} = \frac{E_{año}}{P_{máx} \times 8.760\,h}
+        \]
+        <p>donde \(E_{año}\) es la energía consumida en el año y \(P_{máx}\) el máximo horario. Con el ejemplo real: en 2025, \(FC = \frac{84.618\ \text{GWh}}{12.220\ \text{MW} \times 8.760\ \text{h}} \approx 0{,}79\). El factor de carga mide qué tan “llena” está la curva de carga respecto a su propio pico: un FC de 1,0 sería consumir el máximo las 24 horas del año; valores bajos describen una curva con valles profundos de madrugada y puntas pronunciadas al anochecer. Importa por una asimetría fundamental: el sistema se <em>dimensiona</em> para el pico, pero se <em>paga</em> con la energía. Cuando el FC sube, cada megavatio de infraestructura trabaja más horas — buena noticia económica. Pero también desaparecen las horas de holgura donde antes cabían, sin consecuencias, los errores de pronóstico.</p>
+      </div>
+
+      <p>En 2000, el factor de carga anual del SIN era 0,626. En 2025, 0,790. Dieciséis puntos de aplanamiento en 25 años, a un ritmo notablemente estable de unas siete milésimas por año, y verificados contra dos series independientes de demanda que coinciden a menos de media centésima. La proyección de la UPME espera que la deriva continúe: 0,860 en 2040. Una curva de carga que se llena por los valles mientras su pico rompe récords fuera de temporada.</p>
+
+      <figure>
+        <img src="assets_demanda/F2_factor_carga.png" alt="Factor de carga anual del SIN de 2000 a 2040. Línea azul con puntos para los valores observados, que suben de 0,626 en 2000 a 0,790 en 2025, con un punto hueco para el año corrido 2026; desde 2027 la senda de la UPME en naranja, escenario medio con cargas nuevas, sube hasta 0,860 en 2040 dentro de una banda sombreada, y una línea naranja punteada muestra la variante sin cargas nuevas como contraste. Una nota indica que el año 2026 del anexo no se grafica por mezclar tramo observado y proyectado.">
+        <figcaption>Figura 2. Factor de carga anual del SIN, observado 2000–2025 y senda UPME 2027–2040.</figcaption>
+      </figure>
+
+      <p>Hay un patrón más en estos veinticinco años, y es el que anticipa la sección 4. En el último quinquenio, la demanda anual creció a saltos desiguales: 5,4&nbsp;% en 2023, 2,6&nbsp;% en 2024, 1,6&nbsp;% en 2025, y el 5,6&nbsp;% que acumula 2026. Los dos años de +5&nbsp;% son, exactamente, los dos años con fenómeno de El Niño declarado o en formación. Puede ser coincidencia — dos observaciones no hacen una ley — pero es el tipo de coincidencia que vale la pena mirar con cuidado. Lo haremos con datos de temperatura en la sección 4.</p>
+    </section>
+
+    <section id="s3" aria-labelledby="s3-h2">
+      <h2 id="s3-h2">3. Las cargas que vienen (y la que no aparece)</h2>
+
+      <p>La proyección oficial de demanda 2026–2040, en su revisión de julio de 2026, espera que el SIN crezca al 2,46&nbsp;% anual compuesto en su variante base. Al añadir las cargas nuevas — grandes consumidores especiales y movilidad eléctrica — la tasa sube a 3,05&nbsp;%: seis décimas de punto porcentual anuales que, compuestas a 2040, equivalen a unos 19.000&nbsp;GWh adicionales, casi una cuarta parte de la demanda actual. Una nota metodológica: las tasas de crecimiento citadas en este artículo se calculan directamente del anexo de datos publicado por la UPME (los promedios del documento soporte usan una convención de cálculo distinta).</p>
+
+      <figure>
+        <img src="assets_demanda/F3_nuevas_cargas.png" alt="Áreas apiladas entre 2026 y 2040 en GWh por año: en azul los grandes consumidores nuevos reportados, que crecen de unos 5.500 a unos 9.400 GWh y se aplanan desde 2030; en naranja la movilidad eléctrica, que crece de 334 a 9.604 GWh; en gris rayado y con signo negativo la generación distribuida del escenario UPME, que resta hasta 10.234 GWh en 2040; una línea negra muestra el neto. Un rótulo señala a ODATA Navarra, cerca de 335 GWh a 2040, como la única carga identificable como centro de datos.">
+        <figcaption>Figura 3. Las nuevas cargas de la proyección UPME 2026–2040: grandes consumidores reportados, movilidad eléctrica y generación distribuida.</figcaption>
+      </figure>
+
+      <p>¿De qué están hechas esas cargas nuevas? Dos bloques muy distintos. El primero, la movilidad eléctrica: pasa de 334&nbsp;GWh en 2026 a 9.604&nbsp;GWh en 2040 — se multiplica por 29 — hasta igualar en tamaño al bloque completo de grandes consumidores. Es, por lejos, la carga de mayor crecimiento del sistema, aun cuando la propia UPME advierte que su escenario es el de baja ambición y que la meta nacional de 600.000 vehículos eléctricos a 2030 no se alcanzará. El segundo bloque, los grandes consumidores especiales, crece de 5.526 a 9.385&nbsp;GWh pero se aplana desde 2030, y su composición dice algo importante sobre qué significa “electrificación industrial” en Colombia hoy: los mayores consumos corresponden a campos petroleros (Rubiales, San Fernando), refinación (Reficar, Ecopetrol Magdalena), minería de carbón, siderurgia y cemento. La transición energética colombiana, vista desde la demanda, es por ahora la electrificación de sus industrias extractivas.</p>
+
+      <p>Y luego está la carga que no aparece. En las 69 páginas del documento de proyección y en las catorce hojas de su anexo, la palabra “datacenter” — o “centro de datos” — no figura ni una vez. Entre los grandes consumidores hay una sola carga identificable con certeza como tal: ODATA Navarra, del operador latinoamericano de centros de datos adquirido por Aligned Data Centers, con entrada prevista en 2027 y un consumo que escala de 105 a 335&nbsp;GWh anuales — y quizás una segunda, “Tenjo 1”, en la misma zona de la sabana de Bogotá donde el sector ya opera. Del orden de 400&nbsp;GWh a 2040, en el escenario más generoso: una fracción del 0,3&nbsp;% de la demanda proyectada, en el momento en que los centros de datos redefinen los balances eléctricos de medio mundo.</p>
+
+      <p>Sería injusto llamarlo un error de proyección, porque no hay proyección que corregir. El propio documento lo declara: el volumen de los grandes consumidores nuevos “no es resultado de un ejercicio de proyección” — es la transcripción de lo que las empresas y los operadores de red reportaron, con corte a abril de 2026. Quien pidió conexión, existe; quien no la ha pedido, no. Para cargas industriales de maduración larga, el método es defendible. Para una industria capaz de decidir en dieciocho meses dónde instala cientos de megavatios, es una ventana ciega — y a ella volveremos en la sección 6, porque no es la única.</p>
+    </section>
+
+    <section id="s4" aria-labelledby="s4-h2">
+      <h2 id="s4-h2">4. El Niño: presión adicional en el peor momento posible</h2>
+
+      <figure>
+        <img src="assets_demanda/F4_enso_nacional.png" alt="Dos paneles apilados de 2000 a 2026. Arriba, barras mensuales de la anomalía de demanda en por ciento, coloreadas en rojo durante El Niño, azul durante La Niña, gris en fase neutra y naranja para el Niño provisional de 2026; líneas horizontales marcan la media de cada episodio: más 0,37 por ciento en 2009-10, más 0,45 en 2015-16, más 1,45 en 2023-24 y más 0,83 en 2026. Abajo, el índice ONI con los umbrales de más y menos 0,5 grados.">
+        <figcaption>Figura 4. Anomalías mensuales de la demanda del SIN y fases ENSO, 2000–2026, con las medias por episodio.</figcaption>
+      </figure>
+
+      <p>Empecemos por precisar la magnitud del fenómeno, porque la credibilidad de esta serie se construye midiendo antes de afirmar. Aislando la anomalía mensual de demanda — el residuo que queda tras remover la estacionalidad, es decir, el patrón de consumo que se repite todos los años por razones de calendario y clima, y la tendencia de crecimiento de fondo — los episodios de El Niño de este siglo elevaron el consumo en promedio +0,37&nbsp;% (2009-10), +0,45&nbsp;% (2015-16) y +1,45&nbsp;% (2023-24). El episodio en formación de 2026 va, provisionalmente, en +0,83&nbsp;%. Frente a una variación mensual típica de ±1,5&nbsp;% — la fluctuación normal de la demanda entre un mes y otro — el efecto es real y medible, pero El Niño no es el único factor que dispara la demanda: actúa sobre una tendencia que ya es la más empinada del siglo y en simultáneo con la entrada de cargas nuevas. La pregunta relevante es por qué existe ese incremento y dónde se concentra.</p>
+
+      <p>La respuesta es la temperatura, y ahora podemos medirla. Con un índice nacional de temperatura construido de estaciones ancla por región, la demanda diaria del SIN — neta de calendario y tendencia — responde +2,1&nbsp;% por cada grado Celsius (IC 95&nbsp;%: 1,8–2,4). La aritmética del canal es directa: un episodio de El Niño que sostenga temperaturas medio grado por encima de lo normal equivale a un punto porcentual de demanda adicional, día tras día, durante los meses que dure. Ese es exactamente el orden de magnitud de los episodios observados: el aumento tiene mecanismo físico, no es una curiosidad estadística.</p>
+
+      <figure>
+        <img src="assets_demanda/F6_sensibilidad_temperatura.png" alt="Dos diagramas de dispersión con la misma escala: a la izquierda el Caribe, a la derecha Bogotá. En el eje horizontal, la desviación de la temperatura media diaria respecto a la media del ancla, de menos 3 a más 3 grados; en el vertical, la demanda diaria neta de calendario y tendencia, en por ciento. Los puntos grises son días y los círculos de color medias por ventil; la recta del Caribe, naranja, tiene pendiente de más 2,46 por ciento por grado, y la de Bogotá, azul, de más 1,04.">
+        <figcaption>Figura 5. Sensibilidad de la demanda a la temperatura, Caribe frente a Bogotá, 2021–2026.</figcaption>
+      </figure>
+
+      <p>Y no se reparte parejo. La sensibilidad térmica de la costa Caribe está entre +1,7 y +2,5&nbsp;% por grado según la especificación — con datos satelitales declarados como índice de variabilidad, +2,46 (IC 2,10–2,81) — mientras la de Bogotá es +1,04 (IC 0,69–1,38): intervalos que no se solapan. Por cada grado de más, la demanda del Caribe responde aproximadamente el doble que la de la capital. Un resultado adicional del análisis: la sensibilidad bogotana es <em>positiva</em> — a 2.600 metros, donde cabría esperar que el calor redujera el consumo asociado a calefacción y agua caliente, domina el efecto contrario. Es una cifra, no una explicación; queda anotada.</p>
+
+      <figure>
+        <img src="assets_demanda/F5_regional_enso.png" alt="Anomalía mensual de la demanda entre 2021 y 2026 para el Caribe en naranja, Oriente en azul punteado y el SIN en gris oscuro, suavizada con media móvil de tres meses, con bandas de fondo para La Niña de 2021-23, El Niño de 2023-24 y el Niño provisional de 2026. Durante El Niño 2023-24 el Caribe promedia más 1,59 por ciento frente a más 0,85 del SIN y más 0,39 de Oriente, con un pico del Caribe de más 5,7 por ciento en septiembre de 2023.">
+        <figcaption>Figura 6. Anomalías de demanda regional y fases ENSO, 2021–2026: el Caribe frente al SIN.</figcaption>
+      </figure>
+
+      <p>¿Se tradujo esa sensibilidad en el último Niño? En 2023-24, la anomalía del Caribe promedió +1,59&nbsp;% contra +0,85&nbsp;% del SIN y +0,39&nbsp;% de Oriente, con un máximo regional de +5,7&nbsp;% en septiembre de 2023. El signo acompaña a la hipótesis, pero seamos precisos con lo que un solo episodio permite afirmar: la diferencia Caribe–SIN no es estadísticamente distinguible con esta muestra, y otras áreas registraron anomalías comparables. La formulación que los datos sí sostienen: el Caribe es la región más sensible a la temperatura del país, y la que más crece en 2026 — +9,3&nbsp;% en lo corrido del año contra +5,4&nbsp;% nacional. Con una advertencia metodológica: ese crecimiento de 2026 está confundido con la entrada de grandes consumidores industriales de la propia costa — refinación, siderurgia, cemento — y no es atribuible al clima sin más análisis.</p>
+
+      <p>Esto cierra el pendiente de la sección 2. Los dos años de +5&nbsp;% del quinquenio — 2023 y 2026 — son años Niño, y el canal térmico explica una parte: entre uno y uno y medio puntos porcentuales. El resto es la tendencia y las cargas nuevas entrando en simultáneo. No hace falta exagerar el papel del fenómeno: la superposición de los tres factores <em>es</em> la historia.</p>
+
+      <p>Porque el problema de El Niño nunca fue solo la magnitud del incremento — es el momento en que llega. El <a href="https://gonzalezsierra.co/estudios/el-nino-2026-2027-bayes-parp.html">primer artículo de esta serie</a> mostró lo que el fenómeno hace del lado de la oferta: aportes hídricos que caen 20 y 30&nbsp;% bajo la media durante los meses críticos. El mismo fenómeno que retira agua de los embalses añade, vía temperatura, un punto de demanda — sobre una base que ya crece al 4&nbsp;% anual y rompe récords en agosto. A la fecha de cierre de este artículo, el índice ONI acumula dos trimestres consecutivos sobre el umbral de El Niño (+0,5&nbsp;°C), camino de los cinco que exige la clasificación oficial del episodio. El incremento es moderado. El margen sobre el que llega, también.</p>
+    </section>
+
+    <section id="s5" aria-labelledby="s5-h2">
+      <h2 id="s5-h2">5. Pronosticar la forma, no solo el nivel — y elegir bien el escenario</h2>
+
+      <figure>
+        <img src="assets_demanda/F7_perfil_horario.png" alt="Mapa de calor de doce filas, una por mes calendario, y veinticuatro columnas, una por hora del día, con el perfil horario típico de la demanda relativo a la media del mes. Las horas de madrugada aparecen claras, la tarde y la noche oscuras; el número en cada fila marca la hora del máximo, alrededor de 1,14 veces la media, en la hora 20 de enero a septiembre y en la hora 19 de octubre a diciembre.">
+        <figcaption>Figura 7. Perfil horario típico de la demanda del SIN por mes calendario, del modelo de reconciliación.</figcaption>
+      </figure>
+
+      <p>Todo lo anterior — récords fuera de temporada, factor de carga en ascenso, sensibilidades regionales — apunta a la misma conclusión técnica: el número anual de demanda es cada vez menos suficiente. El sistema no se estresa en promedio; se estresa en horas concretas. La hora 20 es el máximo del día en la gran mayoría de los días del año, con un corrimiento estacional a la hora 19 entre octubre y diciembre; un jueves típico consume 4&nbsp;% más que la media y un domingo o festivo 10&nbsp;% menos. Dos pronósticos con la misma energía anual y formas distintas son, operativamente, dos sistemas distintos: distinta exigencia de respaldo, distinto valor del agua embalsada, distinta exposición al pico.</p>
+
+      <p>Pronosticar la forma es un problema matemático con nombre propio: la reconciliación jerárquica de series de tiempo. Cuando se desagrega una proyección mensual a resolución horaria y por regiones, las piezas deben sumar exactamente el total — la propiedad de coherencia — sin destruir en el proceso la morfología de la curva: la punta nocturna, el valle de madrugada, el ritmo semanal. Sobre este problema publicamos recientemente un <a href="https://www.nature.com/articles/s41598-026-61641-0">artículo científico</a> que propone un método de reconciliación con preservación de forma, y ese es el principio que aplicamos operativamente a la proyección colombiana: la senda mensual de la UPME se desagrega a las 8.760 horas del año y a las subáreas del sistema con perfiles construidos de tres años de historia — mes por mes, día de la semana por día de la semana, con los festivos tratados con forma dominical — bajo dos restricciones duras: las horas suman exactamente la energía mensual proyectada, y el máximo de cada mes queda anclado a la demanda máxima de potencia que la propia UPME proyecta. El resultado es la proyección oficial, pero <em>con forma</em>: utilizable en un modelo de despacho.</p>
+
+      <p>Ahora bien, una proyección con forma sigue exigiendo una decisión previa: ¿cuál escenario? La UPME publica un escenario medio con bandas de confianza, y la elección entre ellos no debería ser un acto de fe sino una decisión informada por la evidencia disponible — el estado del clima, la actividad económica, el comportamiento reciente de la demanda.</p>
+
+      <figure>
+        <img src="assets_demanda/F8_escenarios_2026.png" alt="Demanda mensual del SIN de enero de 2026 a febrero de 2027 en GWh. Línea azul con puntos para lo observado en 2026, con agosto parcial como punto hueco; línea naranja y banda sombreada para el escenario medio de la UPME con cargas nuevas y su intervalo del 68 por ciento; línea gris punteada para la variante sin cargas nuevas; entre septiembre de 2026 y febrero de 2027, dos líneas rojas punteadas por encima del escenario medio muestran el criterio térmico de más 0,5 y más 1,0 grados. Una línea vertical marca el corte de datos del 24 de agosto y un marcador señala el récord de potencia del 20 de agosto.">
+        <figcaption>Figura 8. La demanda mensual de 2026 frente a los escenarios UPME y la senda del verano con criterio térmico.</figcaption>
+      </figure>
+
+      <p>El comportamiento de 2026 ofrece una primera respuesta: la demanda observada no cae en ninguna banda. Entre abril y julio, el consumo acumulado quedó 2,8&nbsp;% por debajo del escenario medio con cargas nuevas — fuera de su intervalo del 95&nbsp;% — y 4,0&nbsp;% por encima de la variante sin ellas: en el espacio entre ambas, materializando cerca del 57&nbsp;% del incremento que separa las dos proyecciones. En potencia, la lectura se invierte: el récord de agosto queda dentro del intervalo de la variante con cargas nuevas y 4,6&nbsp;% por encima de la otra, que ya fue superada dos veces. La demanda real está escribiendo una trayectoria intermedia en energía y exigente en potencia — y para el verano que empieza, el criterio térmico añade su aritmética: medio grado sostenido son unos 500&nbsp;GWh adicionales entre septiembre y febrero; un grado, cerca de 1.000. Ambos caben dentro de la incertidumbre del propio anexo. La conclusión operativa no es que la proyección esté mal: es que elegir escenario exige mirar los datos que van llegando — el clima, las conexiones industriales que se materializan, la temperatura — y no solo el abanico publicado. El verano 2026-27 será el banco de pruebas de ese selector de escenario, con criterio humano y evidencia cuantitativa.</p>
+
+      <p>Un pronóstico, sin embargo, es tan bueno como las preguntas que se hace. Y la proyección oficial de demanda del país, hoy, no se hace dos preguntas que este artículo ya mostró que importan. De eso trata la sección final.</p>
+    </section>
+
+    <section id="s6" aria-labelledby="s6-h2">
+      <h2 id="s6-h2">6. La brecha institucional empieza en el pronóstico</h2>
+
+      <p>Este artículo documentó dos ausencias en la proyección oficial de demanda: el fenómeno que la perturba con mecanismo físico medible — la UPME modela temperaturas medias por área, pero ningún escenario ENSO — y la carga que está redefiniendo los balances eléctricos de medio mundo, que aparece por transcripción y no por proyección. Sería un diagnóstico incompleto detenerse ahí, porque la gestión de la demanda no es solo pronosticarla: es darle instrumentos para responder. Y en ese frente el balance es más matizado — y más interesante — que el simple “nadie está mirando” del título.</p>
+
+      <p>El mandato existe hace más de una década: la Ley 1715 de 2014 ordena a la CREG establecer mecanismos para incentivar la respuesta de la demanda, desplazar los consumos de los periodos de punta y procurar el aplanamiento de la curva. El instrumento histórico es anterior incluso a esa ley: la Demanda Desconectable Voluntaria, creada en la Resolución CREG 071 de 2006 como uno de los anillos de seguridad del cargo por confiabilidad — un mecanismo mediante el cual un generador que anticipe que su energía no alcanza para cumplir sus obligaciones de energía firme puede negociar, a través de comercializadores, reducciones voluntarias de consumo. Nótese el diseño: la demanda como respaldo <em>de la oferta</em>, activable cuando un generador lo necesita. Veinte años después, ese sigue siendo el ADN del esquema.</p>
+
+      <p>El Niño 2023-24 forzó el primer experimento distinto: un programa transitorio para la participación activa de la demanda en la bolsa de energía — la Resolución CREG 101 043 de 2024, seguida de la 101 054 — con vigencia atada a la coyuntura hidrológica. La escala lograda fue modesta: las ofertas de reducción promediaron cerca de 0,5&nbsp;GWh diarios, del orden del 0,2&nbsp;% de la demanda de un día. Pero el piloto dejó dos cosas valiosas: la evidencia de que existe demanda dispuesta a ofertar, y agregadores operando — empresas cuyo negocio es representar consumidores en el mercado.</p>
+
+      <p>Y en junio de 2026, con el ONI ya cruzando el umbral, llegó el paso estructural: la Resolución CREG 101 111 de 2026 establece el programa permanente para que los usuarios, individualmente o agrupados mediante un representante, oferten reducciones de consumo en la bolsa y sean considerados en el despacho diario, con remuneración por la energía verificada. Dos rasgos de diseño merecen subrayarse: las ofertas se presentan contra una línea base de consumo horaria — la demanda compite en la bolsa con las mismas reglas de granularidad que la generación — y el representante del usuario puede ser distinto del comercializador que le presta el servicio: la figura del agregador independiente quedó formalizada. En paralelo, la Resolución CREG 101 120 de 2026 creó un programa transitorio de incentivos al uso eficiente para reducir la demanda regulada durante situaciones de estrechez energética. Reconozcámoslo sin ambigüedad: es la arquitectura regulatoria de respuesta de la demanda más completa que ha tenido el país.</p>
+
+      <p>Entonces, ¿dónde está la brecha? En tres lugares. El primero es el patrón temporal: cada avance nace al calor de un Niño — los transitorios de 2024 con vigencia atada al fenómeno, el programa permanente expedido con el episodio de 2026 formándose. La demanda se gestiona cuando aprieta, no como política continua. El segundo es la escala de partida: 0,2&nbsp;% de la demanda diaria es el punto de arranque del nuevo programa, no un logro consolidado. Y el tercero es estructural, y es el que determina el techo de los otros dos: la medición. Los lineamientos de medición avanzada datan de 2018, con meta de 75&nbsp;% de implementación nacional a 2030 — 95&nbsp;% en zonas urbanas —, y la Resolución CREG 101 001 de 2022 estableció las condiciones para su despliegue en el SIN; pero el avance físico reportado no superaba el 1&nbsp;% de los medidores del país, con la financiación de la infraestructura sin responsabilidades plenamente resueltas. Sin medidor horario no hay línea base residencial; sin línea base, el usuario regulado — la mayoría del consumo — no puede ofertar reducción ni recibir señal de precio alguna. La respuesta de la demanda colombiana queda, por construcción, confinada al segmento industrial y comercial grande.</p>
+
+      <p>La pregunta que este verano empezará a responder no es si la regulación existe — existe — sino si un mercado de respuesta de la demanda puede crecer más rápido que los medidores que lo hacen posible.</p>
+    </section>
+
+    <section id="s7" aria-labelledby="s7-h2" class="vigilar">
+      <h2 id="s7-h2">7. Qué vigilar</h2>
+
+      <p>El verano 2026-27 encontrará al SIN con la demanda más alta de su historia, la curva más llena, y — por primera vez — un programa permanente para que esa demanda responda. Cinco indicadores concretos para seguirlo, en orden de frecuencia:</p>
+
+      <p><strong>El pico contra la senda.</strong> El récord de agosto dejó la variante base de la UPME superada por segunda vez en el año y quedó a 2,7&nbsp;% de la demanda máxima proyectada en la variante con cargas nuevas. Si los picos de septiembre a diciembre — la temporada histórica de máximos — siguen cerrando esa distancia, la potencia estará corriendo por delante de la proyección más exigente disponible.</p>
+
+      <p><strong>La banda de energía.</strong> La demanda mensual viene trazando una trayectoria intermedia entre las dos variantes del anexo, materializando poco más de la mitad del incremento de las cargas nuevas. Ese porcentaje de materialización — qué tan rápido se conectan de verdad los grandes consumidores reportados — es el número a actualizar cada mes.</p>
+
+      <p><strong>El ONI y la temperatura.</strong> A la fecha de cierre, dos trimestres consecutivos sobre el umbral de El Niño; la clasificación oficial exige cinco. Pero para la demanda el índice es solo el intermediario: la variable operativa es la temperatura — cada medio grado sostenido son unos 500&nbsp;GWh de consumo adicional en el semestre, con el Caribe respondiendo al doble del ritmo de Bogotá.</p>
+
+      <p><strong>El margen por las dos puntas.</strong> El primer artículo de esta serie estimó lo que El Niño hace con los aportes hídricos; este artículo, lo que hace con la demanda. La unidad común permite ponerlos frente a frente. En el mes más exigente del horizonte — enero de 2027 — aquel estudio proyecta aportes esperados de 85,4&nbsp;GWh/día frente a una media histórica de 137,6: un déficit cercano a 52&nbsp;GWh/día, el 38&nbsp;% del recurso típico del mes. Del lado del consumo, el criterio térmico de este artículo equivale a entre 2,7 y 5,5&nbsp;GWh/día adicionales con medio grado y un grado sostenidos. Por cada gigavatio-hora diario que El Niño añade a la demanda, retira del orden de diez a veinte de los aportes: en energía, el estrechamiento del margen es, ante todo, un fenómeno de oferta. Pero la presión de demanda cobra en otra moneda — el máximo de potencia, los récords fuera de temporada, la hora 20 — justo cuando el parque hidráulico pierde el recurso con que suele cubrirla. La simultaneidad de ambas presiones, cada una en su unidad, es el riesgo que ninguna de las dos cifras muestra por separado.</p>
+
+      <p><strong>La respuesta de la demanda en su primer examen.</strong> Las ofertas aceptadas en bolsa bajo el programa de la Resolución 101 111 — cuántos GWh diarios, a qué precios, con cuántos representantes activos — serán la medida de si el instrumento llegó a tiempo. Su punto de partida es 0,2&nbsp;% de la demanda diaria; cualquier múltiplo de esa cifra durante el verano será información nueva sobre cuánta flexibilidad tiene realmente este sistema.</p>
+
+      <p>La serie continuará donde los datos lo pidan. Los embalses se miran todos los días; la curva que los vacía, casi nunca. Este verano conviene mirar las dos.</p>
+    </section>
+
+    <section id="notas" aria-labelledby="notas-h2">
+      <h2 id="notas-h2">Notas metodológicas</h2>
+      <ol class="notas">
+        <li><strong>Serie de demanda.</strong> Toda la historia observada proviene de los registros históricos del mercado (demanda comercial horaria, 2000 → 2026-08-24). Existe una segunda serie oficial (demanda real) con una brecha estable cercana al 1,5&nbsp;%; las conclusiones se verificaron contra ambas.</li>
+        <li><strong>Series mensuales por día equivalente.</strong> Las figuras y cifras mensuales corrigen por número de días y composición hábil/sábado/domingo-festivo, para que las comparaciones entre meses y años (incluidos bisiestos) sean homogéneas.</li>
+        <li><strong>Anomalías.</strong> Residuo de una descomposición STL con ventana de tendencia de 25 meses, declarada; ventanas más largas amplifican el efecto ENSO estimado y no se usan.</li>
+        <li><strong>Tasas UPME.</strong> Calculadas directamente del anexo de datos publicado (ver. Ago-2026); los promedios del documento soporte usan una convención de cálculo distinta. El dato anual 2026 del anexo mezcla tramo observado y proyectado, por lo que las comparaciones observado-vs-proyección inician en 2027.</li>
+        <li><strong>Demanda regional.</strong> Participaciones del pronóstico oficial semanal por subáreas aplicadas a la demanda nacional observada, con un filtro de calidad que excluye 29 días con errores evidentes del pronóstico. La geografía de las subáreas no coincide exactamente con las áreas de la UPME y las participaciones no incluyen pérdidas del sistema de transmisión: los niveles regionales no se comparan contra cifras UPME.</li>
+        <li><strong>Temperatura.</strong> NASA POWER (MERRA-2, T2M diaria) como índice homogéneo de variabilidad, no de nivel; robustez con estaciones IDEAM donde la cobertura lo permite (Caribe: +1,66&nbsp;%/°C). La sensibilidad se estima con regresión diaria con controles de tipo de día, mes y año, y errores robustos a autocorrelación.</li>
+        <li><strong>Cifras inter-artículos.</strong> Las comparaciones con el estudio de oferta de esta serie usan únicamente números impresos en esa publicación (texto o anotaciones de figuras). La conversión del criterio térmico a GWh/día usa la demanda media del semestre sep-2026 → feb-2027 del escenario medio. Aquel balance empleó como demanda la banda superior 68&nbsp;% de la UPME — más exigente que lo observado en 2026 — por lo que su diagnóstico es conservador respecto a los datos de este artículo.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="estudio-footer">
+    <div class="inner">
+      <h3>Referencias y fuentes</h3>
+      <ul class="citas">
+        <li>UPME — Proyección de la demanda de energía eléctrica y potencia máxima 2026-2040, Rev. Julio 2026, y su anexo de resultados (ver. Ago-2026).</li>
+        <li>Registros históricos del mercado — demanda comercial horaria del SIN, 2000 → 2026-08-24; pronóstico oficial semanal por subáreas, 2021 → 2026.</li>
+        <li>NOAA Climate Prediction Center — Oceanic Niño Index (ONI) y anomalías Niño 3.4 (ERSSTv5), descarga de agosto de 2026.</li>
+        <li>NASA POWER (MERRA-2) — temperatura diaria a 2 m, 2015-2026; IDEAM — estaciones automáticas de Barranquilla, Bucaramanga, Montería y Valledupar (datos abiertos).</li>
+        <li>González Sierra, M. et al. — artículo sobre reconciliación jerárquica con preservación de forma, <em>Scientific Reports</em> (2026), <a href="https://www.nature.com/articles/s41598-026-61641-0">s41598-026-61641-0</a>.</li>
+        <li>CREG — Resoluciones 071 de 2006, 101 001 de 2022, 101 043 y 101 054 de 2024, 101 111 y 101 120 de 2026; Ley 1715 de 2014.</li>
+        <li>Artículos previos de la serie: <a href="https://gonzalezsierra.co/estudios/el-nino-2026-2027-bayes-parp.html">¿Tendremos estrés energético durante el Súper Niño 2026-27?</a>; <a href="https://gonzalezsierra.co/estudios/estatuto-riesgo-desabastecimiento.html">El Estatuto de Riesgo de Desabastecimiento: cómo funciona y dónde falla</a>.</li>
+      </ul>
+      <p>Publicado en <a href="https://gonzalezsierra.co">gonzalezsierra.co</a> · Reutilización con cita.</p>
+      <p style="margin-top:12px;"><a href="https://gonzalezsierra.co" class="back-home">← Volver a todos los estudios</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
